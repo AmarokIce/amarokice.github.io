@@ -1,0 +1,2526 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="zh-TW" >
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+  ><!-- Setup Open Graph image -->
+
+  
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Kotlin中Lambda表达式与object表达式 | 狼与凤梨田</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Kotlin中Lambda表达式与object表达式" />
+<meta name="author" content="初雪·冰" />
+<meta property="og:locale" content="zh_TW" />
+<meta name="description" content="出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。 在网上查找了很久，除了复制黏贴的文章之外什么也没找到，最后还是脑子里的凤梨全回到该到的地方才想起来怎么用。 在Kotlin中灵活使用 Lambda 表达式也是非常重要的，而Kotlin有多重集成API。 如果你不是一个 Java 的老开发者，也不太了解 Java8 发生啥事，那么你可能不知道 Lambda 是什么，或者说你经常使用，但你不知道它其实就叫 Lambda 。无论如何，这一篇解析将会透彻讲解 Kotlin 的Lambda 。如果你觉得我写的还不错，那就让我来 λλ 你的凤梨 记得分享我的文章。 Lambda 本质是一种匿名的代码块传递。首先我们来看一组例子： 1 2 3 4 5 6 7 8 9 open class FunnyClass class NotFunnyClass {} fun funnyFunction() {} var funnyVariable = { i: Int -&gt; i + 1 } 快问快答！上面四组非常有趣（或者没那么有趣）的例子中哪个是真正的Lambda—— 答案是可变变量 funnyVariable！ 此处使用了一个 Lambda 将一个执行代码块传入了变量 funnyVariable。那么我们要如何使用 funnyVariable ？ 1 2 3 4 5 var funnyVariable = { i: Int -&gt; i + 1 } val o = funnyVariable(1) 如果你有一种疑问：“这和方法有什么区别？” 事实上 Lambda 的运用不止如此——而将 Lambda 传入对象也是一种精妙的设计！再来看这样的例子： 1 val data = HashMap&lt;String, (Int) -&gt; Unit&gt;() 注意到这和一般的申明 HashMap 有什么不同吗？ 它的值不是一个标准 Object，而是一个Lambda！ 那么我们现在使用这样的data HashMap： 1 2 3 4 5 6 7 8 9 10 11 12 13 val data = HashMap&lt;String, (Int) -&gt; Unit&gt;() run { data[&quot;test&quot;] = { // 传入参数只有一种时，Kotlin会静默将其申明为 it val i = it + 514 print(i) } val dat = data[&quot;test2&quot;]?.let { // 巧妙的 Lambda Let 会在文章的后面讲到！ it(114) } ?: -1 // 因为 dada 中没有 test2 ，所以此处返回值永远都是 -1 } 这在 Java 中要如何实现？好吧，我们需要先实现一个接口来承载方法。 内联方法体 与 Java 一样，在调用 Lambda 的时候允许直接传入 Lambda 对象内联方法体，也就是使用 ::Method 上实例： 1 2 3 4 5 6 7 fun add(entry: Map.Entry&lt;Int, Int&gt;): Int { return entry.key + entry.key } val intMap = HashMap&lt;Int, Int&gt;() intMap[1] = 1 intMap.map(::add).forEach(::print) 减少性能开销 Kotlin 中使用 Lambda 匿名的本质事实上也是在调用时动态创建一个匿名类作为承载体。不断的实例确实是相当耗费性能的。 此时一个新的标记登场：inline。 但事实上，我不会推荐在每个地方都打上 inline 。因为如果你预期的内连方法体中并没有新的 Lambda 函数参数，在最新的 Kotlin 中，这样的性能开销早已微不足道。 但是这篇教学依然会向你展示 inline 的标记点： 1 2 3 4 5 6 7 inline fun add(entry: Map.Entry&lt;Int, Int&gt;): Int { return entry.key + entry.key } val intMap = HashMap&lt;Int, Int&gt;() intMap[1] = 1 intMap.map(::add).forEach(::print)" />
+<meta property="og:description" content="出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。 在网上查找了很久，除了复制黏贴的文章之外什么也没找到，最后还是脑子里的凤梨全回到该到的地方才想起来怎么用。 在Kotlin中灵活使用 Lambda 表达式也是非常重要的，而Kotlin有多重集成API。 如果你不是一个 Java 的老开发者，也不太了解 Java8 发生啥事，那么你可能不知道 Lambda 是什么，或者说你经常使用，但你不知道它其实就叫 Lambda 。无论如何，这一篇解析将会透彻讲解 Kotlin 的Lambda 。如果你觉得我写的还不错，那就让我来 λλ 你的凤梨 记得分享我的文章。 Lambda 本质是一种匿名的代码块传递。首先我们来看一组例子： 1 2 3 4 5 6 7 8 9 open class FunnyClass class NotFunnyClass {} fun funnyFunction() {} var funnyVariable = { i: Int -&gt; i + 1 } 快问快答！上面四组非常有趣（或者没那么有趣）的例子中哪个是真正的Lambda—— 答案是可变变量 funnyVariable！ 此处使用了一个 Lambda 将一个执行代码块传入了变量 funnyVariable。那么我们要如何使用 funnyVariable ？ 1 2 3 4 5 var funnyVariable = { i: Int -&gt; i + 1 } val o = funnyVariable(1) 如果你有一种疑问：“这和方法有什么区别？” 事实上 Lambda 的运用不止如此——而将 Lambda 传入对象也是一种精妙的设计！再来看这样的例子： 1 val data = HashMap&lt;String, (Int) -&gt; Unit&gt;() 注意到这和一般的申明 HashMap 有什么不同吗？ 它的值不是一个标准 Object，而是一个Lambda！ 那么我们现在使用这样的data HashMap： 1 2 3 4 5 6 7 8 9 10 11 12 13 val data = HashMap&lt;String, (Int) -&gt; Unit&gt;() run { data[&quot;test&quot;] = { // 传入参数只有一种时，Kotlin会静默将其申明为 it val i = it + 514 print(i) } val dat = data[&quot;test2&quot;]?.let { // 巧妙的 Lambda Let 会在文章的后面讲到！ it(114) } ?: -1 // 因为 dada 中没有 test2 ，所以此处返回值永远都是 -1 } 这在 Java 中要如何实现？好吧，我们需要先实现一个接口来承载方法。 内联方法体 与 Java 一样，在调用 Lambda 的时候允许直接传入 Lambda 对象内联方法体，也就是使用 ::Method 上实例： 1 2 3 4 5 6 7 fun add(entry: Map.Entry&lt;Int, Int&gt;): Int { return entry.key + entry.key } val intMap = HashMap&lt;Int, Int&gt;() intMap[1] = 1 intMap.map(::add).forEach(::print) 减少性能开销 Kotlin 中使用 Lambda 匿名的本质事实上也是在调用时动态创建一个匿名类作为承载体。不断的实例确实是相当耗费性能的。 此时一个新的标记登场：inline。 但事实上，我不会推荐在每个地方都打上 inline 。因为如果你预期的内连方法体中并没有新的 Lambda 函数参数，在最新的 Kotlin 中，这样的性能开销早已微不足道。 但是这篇教学依然会向你展示 inline 的标记点： 1 2 3 4 5 6 7 inline fun add(entry: Map.Entry&lt;Int, Int&gt;): Int { return entry.key + entry.key } val intMap = HashMap&lt;Int, Int&gt;() intMap[1] = 1 intMap.map(::add).forEach(::print)" />
+<link rel="canonical" href="https://wolf.snowlyicewolf.club//posts/kotlin_lambda/" />
+<meta property="og:url" content="https://wolf.snowlyicewolf.club//posts/kotlin_lambda/" />
+<meta property="og:site_name" content="狼与凤梨田" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-03-31T11:17:14+08:00" />
+<meta property="og:image" content="http://127.0.0.1:4000/assets/img/AmarokIce.jpg" /><meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:image" content="http://127.0.0.1:4000/assets/img/AmarokIce.jpg" />
+<meta property="twitter:title" content="Kotlin中Lambda表达式与object表达式" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"初雪·冰","url":"https://github.com/AmarokIce/"},"dateModified":"2024-03-31T11:17:14+08:00","datePublished":"2024-03-31T11:17:14+08:00","description":"出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。 在网上查找了很久，除了复制黏贴的文章之外什么也没找到，最后还是脑子里的凤梨全回到该到的地方才想起来怎么用。 在Kotlin中灵活使用 Lambda 表达式也是非常重要的，而Kotlin有多重集成API。 如果你不是一个 Java 的老开发者，也不太了解 Java8 发生啥事，那么你可能不知道 Lambda 是什么，或者说你经常使用，但你不知道它其实就叫 Lambda 。无论如何，这一篇解析将会透彻讲解 Kotlin 的Lambda 。如果你觉得我写的还不错，那就让我来 λλ 你的凤梨 记得分享我的文章。 Lambda 本质是一种匿名的代码块传递。首先我们来看一组例子： 1 2 3 4 5 6 7 8 9 open class FunnyClass class NotFunnyClass {} fun funnyFunction() {} var funnyVariable = { i: Int -&gt; i + 1 } 快问快答！上面四组非常有趣（或者没那么有趣）的例子中哪个是真正的Lambda—— 答案是可变变量 funnyVariable！ 此处使用了一个 Lambda 将一个执行代码块传入了变量 funnyVariable。那么我们要如何使用 funnyVariable ？ 1 2 3 4 5 var funnyVariable = { i: Int -&gt; i + 1 } val o = funnyVariable(1) 如果你有一种疑问：“这和方法有什么区别？” 事实上 Lambda 的运用不止如此——而将 Lambda 传入对象也是一种精妙的设计！再来看这样的例子： 1 val data = HashMap&lt;String, (Int) -&gt; Unit&gt;() 注意到这和一般的申明 HashMap 有什么不同吗？ 它的值不是一个标准 Object，而是一个Lambda！ 那么我们现在使用这样的data HashMap： 1 2 3 4 5 6 7 8 9 10 11 12 13 val data = HashMap&lt;String, (Int) -&gt; Unit&gt;() run { data[&quot;test&quot;] = { // 传入参数只有一种时，Kotlin会静默将其申明为 it val i = it + 514 print(i) } val dat = data[&quot;test2&quot;]?.let { // 巧妙的 Lambda Let 会在文章的后面讲到！ it(114) } ?: -1 // 因为 dada 中没有 test2 ，所以此处返回值永远都是 -1 } 这在 Java 中要如何实现？好吧，我们需要先实现一个接口来承载方法。 内联方法体 与 Java 一样，在调用 Lambda 的时候允许直接传入 Lambda 对象内联方法体，也就是使用 ::Method 上实例： 1 2 3 4 5 6 7 fun add(entry: Map.Entry&lt;Int, Int&gt;): Int { return entry.key + entry.key } val intMap = HashMap&lt;Int, Int&gt;() intMap[1] = 1 intMap.map(::add).forEach(::print) 减少性能开销 Kotlin 中使用 Lambda 匿名的本质事实上也是在调用时动态创建一个匿名类作为承载体。不断的实例确实是相当耗费性能的。 此时一个新的标记登场：inline。 但事实上，我不会推荐在每个地方都打上 inline 。因为如果你预期的内连方法体中并没有新的 Lambda 函数参数，在最新的 Kotlin 中，这样的性能开销早已微不足道。 但是这篇教学依然会向你展示 inline 的标记点： 1 2 3 4 5 6 7 inline fun add(entry: Map.Entry&lt;Int, Int&gt;): Int { return entry.key + entry.key } val intMap = HashMap&lt;Int, Int&gt;() intMap[1] = 1 intMap.map(::add).forEach(::print)","headline":"Kotlin中Lambda表达式与object表达式","mainEntityOfPage":{"@type":"WebPage","@id":"https://wolf.snowlyicewolf.club//posts/kotlin_lambda/"},"url":"https://wolf.snowlyicewolf.club//posts/kotlin_lambda/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <title>Kotlin中Lambda表达式与object表达式 | 狼与凤梨田
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+<link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg" />
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png" />
+<link rel="manifest" href="/assets/img/favicons/site.webmanifest" />
+
+<!--
+
+
+<link rel="icon" type="image/png" href="/assets/img/favicons、/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/assets/img/favicons、/favicon.svg" />
+<link rel="shortcut icon" href="/assets/img/favicons、/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons、/apple-touch-icon.png" />
+<link rel="manifest" href="/assets/img/favicons、/site.webmanifest" />
+
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="狼与凤梨田">
+<meta name="application-name" content="狼与凤梨田">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+-->
+
+
+
+  <!-- Resource Hints -->
+  
+
+  <!-- Bootstrap -->
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
+
+  <!-- Web Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
+
+  <!-- 3rd-party Dependencies -->
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.29.0/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
+  
+
+  <!-- JavaScript -->
+
+  
+    <!-- Switch the mode between dark and light. -->
+
+<script type="text/javascript">
+  class ModeToggle {
+    static get MODE_KEY() {
+      return 'mode';
+    }
+    static get MODE_ATTR() {
+      return 'data-mode';
+    }
+    static get DARK_MODE() {
+      return 'dark';
+    }
+    static get LIGHT_MODE() {
+      return 'light';
+    }
+    static get ID() {
+      return 'mode-toggle';
+    }
+
+    constructor() {
+      let self = this;this.sysDarkPrefers.addEventListener('change', () => {
+        if (self.hasMode) {
+          self.clearMode();
+        }
+        self.notify();
+      });
+
+      if (!this.hasMode) {
+        return;
+      }
+
+      if (this.isDarkMode) {
+        this.setDark();
+      } else {
+        this.setLight();
+      }
+    }
+
+    get sysDarkPrefers() {
+      return window.matchMedia('(prefers-color-scheme: dark)');
+    }
+
+    get isPreferDark() {
+      return this.sysDarkPrefers.matches;
+    }
+
+    get isDarkMode() {
+      return this.mode === ModeToggle.DARK_MODE;
+    }
+
+    get hasMode() {
+      return this.mode != null;
+    }
+
+    get mode() {
+      return sessionStorage.getItem(ModeToggle.MODE_KEY);
+    }get modeStatus() {
+      if (this.hasMode) {
+        return this.mode;
+      } else {
+        return this.isPreferDark ? ModeToggle.DARK_MODE : ModeToggle.LIGHT_MODE;
+      }
+    }
+
+    setDark() {
+      document.documentElement.setAttribute(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE);
+      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE);
+    }
+
+    setLight() {
+      document.documentElement.setAttribute(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE);
+      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE);
+    }
+
+    clearMode() {
+      document.documentElement.removeAttribute(ModeToggle.MODE_ATTR);
+      sessionStorage.removeItem(ModeToggle.MODE_KEY);
+    }notify() {
+      window.postMessage(
+        {
+          direction: ModeToggle.ID,
+          message: this.modeStatus
+        },
+        '*'
+      );
+    }
+
+    flipMode() {
+      if (this.hasMode) {
+        this.clearMode();
+      } else {
+        if (this.isPreferDark) {
+          this.setLight();
+        } else {
+          this.setDark();
+        }
+      }
+
+      this.notify();
+    }
+  }
+
+  const modeToggle = new ModeToggle();
+</script>
+
+  
+
+  <!-- A placeholder to allow defining custom metadata -->
+
+</head>
+
+
+  <body>
+    <!-- The Side Bar -->
+
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle"><img src="http://127.0.0.1:4000/assets/img/AmarokIce.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
+
+    <a class="site-title d-block" href="/">Amaruq·Illaujaq</a>
+    <p class="site-subtitle fst-italic mb-0"> I just a little wolf in this bigger world. </p>
+  </header>
+  <!-- .profile-wrapper -->
+
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>首頁</span>
+        </a>
+      </li>
+      <!-- the real tabs -->
+      
+        <li class="nav-item">
+          <a href="/categories/" class="nav-link">
+            <i class="fa-fw fas fa-stream"></i>
+            
+
+            <span>分類</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/tags/" class="nav-link">
+            <i class="fa-fw fas fa-tags"></i>
+            
+
+            <span>標籤</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/archives/" class="nav-link">
+            <i class="fa-fw fas fa-archive"></i>
+            
+
+            <span>封存</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/about/" class="nav-link">
+            <i class="fa-fw fas fa-info-circle"></i>
+            
+
+            <span>關於</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/links/" class="nav-link">
+            <i class="fa-fw fas fa-link"></i>
+            
+
+            <span>友情鏈接</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+    
+      <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle">
+        <i class="fas fa-adjust"></i>
+      </button>
+
+      
+        <span class="icon-border"></span>
+      
+    
+
+    
+      
+
+      
+        <a
+          href="https://github.com/AmarokIce"
+          aria-label="github"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://bsky.app/profile/amarokice.bsky.social"
+          aria-label="bluesky"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fa-brands fa-bluesky"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="javascript:location.href = 'mailto:' + ['snowlyicewolf','outlook.com'].join('@')"
+          aria-label="email"
+          
+
+          
+
+          
+
+          
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="/feed.xml"
+          aria-label="rss"
+          
+
+          
+
+          
+
+          
+        >
+          <i class="fas fa-rss"></i>
+        </a>
+      
+    
+  </div>
+  <!-- .sidebar-bottom -->
+</aside>
+<!-- #sidebar -->
+
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <nav id="breadcrumb" aria-label="Breadcrumb">
+      
+
+      
+        
+          
+            <span>
+              <a href="/">首頁</a>
+            </span>
+
+          
+        
+          
+        
+          
+            
+              <span>Kotlin中Lambda表达式与object表达式</span>
+            
+
+          
+        
+      
+    </nav>
+    <!-- endof #breadcrumb -->
+
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <div id="topbar-title">
+      文章
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search id="search" class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="搜尋..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button>
+  </div>
+</header>
+
+
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+
+
+
+
+
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>Kotlin中Lambda表达式与object表达式</h1>
+    
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        發布於
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1711855034"
+  data-df="YYYY/MM/DD"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  2024/03/31
+</time>
+
+      </span>
+
+      <!-- lastmod date -->
+      
+
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          作者
+
+          <em>
+            
+              
+                <a href="https://github.com/AmarokIce/">初雪·冰</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <div>
+          <!-- pageviews -->
+          
+
+          <!-- read time -->
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="884 字"
+>
+  <em>4 分鐘</em>閱讀</span>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+      <span class="label text-truncate">Kotlin中Lambda表达式与object表达式</span>
+      <button type="button" class="toc-trigger btn me-1">
+        <i class="fa-solid fa-list-ul fa-fw"></i>
+      </button>
+    </div>
+
+    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+      <span class="label ps-2 pe-1">文章摘要</span>
+      <i class="fa-solid fa-angle-right fa-fw"></i>
+    </button>
+
+    <dialog id="toc-popup" class="p-0">
+      <div class="header d-flex flex-row align-items-center justify-content-between">
+        <div class="label text-truncate py-2 ms-4">Kotlin中Lambda表达式与object表达式</div>
+        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+          <i class="fas fa-close"></i>
+        </button>
+      </div>
+      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+    </dialog>
+  
+
+  <div class="content">
+    <p>出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。
+在网上查找了很久，除了复制黏贴的文章之外什么也没找到，最后还是脑子里的凤梨全回到该到的地方才想起来怎么用。
+在Kotlin中灵活使用 Lambda 表达式也是非常重要的，而Kotlin有多重集成API。
+如果你不是一个 Java 的老开发者，也不太了解 Java8 发生啥事，那么你可能不知道 Lambda 是什么，或者说你经常使用，但你不知道它其实就叫 Lambda 。无论如何，这一篇解析将会透彻讲解 Kotlin 的Lambda 。如果你觉得我写的还不错，<del>那就让我来 λλ 你的凤梨</del> 记得分享我的文章。</p>
+
+<p>Lambda 本质是一种匿名的代码块传递。首先我们来看一组例子：</p>
+<div class="language-kotlin highlighter-rouge"><div class="code-header">
+        <span data-label-text="Kotlin"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已複製！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="k">open</span> <span class="kd">class</span> <span class="nc">FunnyClass</span>
+
+<span class="kd">class</span> <span class="nc">NotFunnyClass</span> <span class="p">{}</span>
+
+<span class="k">fun</span> <span class="nf">funnyFunction</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="py">funnyVariable</span> <span class="p">=</span> <span class="p">{</span> <span class="n">i</span><span class="p">:</span> <span class="nc">Int</span> <span class="p">-&gt;</span>
+    <span class="n">i</span> <span class="p">+</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>快问快答！上面四组非常有趣（或者没那么有趣）的例子中哪个是真正的Lambda——
+答案是可变变量 <code class="language-plaintext highlighter-rouge">funnyVariable</code>！ 此处使用了一个 Lambda 将一个执行代码块传入了变量 <code class="language-plaintext highlighter-rouge">funnyVariable</code>。那么我们要如何使用 <code class="language-plaintext highlighter-rouge">funnyVariable</code> ？</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="code-header">
+        <span data-label-text="Kotlin"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已複製！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="py">funnyVariable</span> <span class="p">=</span> <span class="p">{</span> <span class="n">i</span><span class="p">:</span> <span class="nc">Int</span> <span class="p">-&gt;</span>
+    <span class="n">i</span> <span class="p">+</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="kd">val</span> <span class="py">o</span> <span class="p">=</span> <span class="nf">funnyVariable</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>如果你有一种疑问：“这和方法有什么区别？”
+事实上 Lambda 的运用不止如此——而将 Lambda 传入对象也是一种精妙的设计！再来看这样的例子：</p>
+<div class="language-kotlin highlighter-rouge"><div class="code-header">
+        <span data-label-text="Kotlin"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已複製！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="nc">HashMap</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="err">(</span><span class="nc">Int</span><span class="err">)</span> <span class="err">-</span><span class="p">&gt;</span> <span class="nc">Unit</span><span class="p">&gt;()</span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>注意到这和一般的申明 HashMap 有什么不同吗？ 它的值不是一个标准 Object，而是一个Lambda！
+那么我们现在使用这样的data HashMap：</p>
+<div class="language-kotlin highlighter-rouge"><div class="code-header">
+        <span data-label-text="Kotlin"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已複製！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="nc">HashMap</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="err">(</span><span class="nc">Int</span><span class="err">)</span> <span class="err">-</span><span class="p">&gt;</span> <span class="nc">Unit</span><span class="p">&gt;()</span>
+
+<span class="nf">run</span> <span class="p">{</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">"test"</span><span class="p">]</span> <span class="p">=</span>  <span class="p">{</span> <span class="c1">// 传入参数只有一种时，Kotlin会静默将其申明为 it</span>
+        <span class="kd">val</span> <span class="py">i</span> <span class="p">=</span> <span class="n">it</span> <span class="p">+</span> <span class="mi">514</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="py">dat</span> <span class="p">=</span> <span class="n">data</span><span class="p">[</span><span class="s">"test2"</span><span class="p">]</span><span class="o">?.</span><span class="nf">let</span> <span class="p">{</span> <span class="c1">// 巧妙的 Lambda Let 会在文章的后面讲到！</span>
+        <span class="nf">it</span><span class="p">(</span><span class="mi">114</span><span class="p">)</span>
+    <span class="p">}</span> <span class="o">?:</span> <span class="p">-</span><span class="mi">1</span>  <span class="c1">// 因为 dada 中没有 test2 ，所以此处返回值永远都是 -1</span>
+<span class="p">}</span>
+
+</pre></td></tr></tbody></table></code></div></div>
+<p>这在 Java 中要如何实现？好吧，我们需要先实现一个接口来承载方法。</p>
+
+<h3 id="内联方法体"><span class="me-2">内联方法体</span><a href="#内联方法体" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>与 Java 一样，在调用 Lambda 的时候允许直接传入 Lambda 对象内联方法体，也就是使用 <code class="language-plaintext highlighter-rouge">::Method</code> 上实例：</p>
+<div class="language-kotlin highlighter-rouge"><div class="code-header">
+        <span data-label-text="Kotlin"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已複製！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="nc">Map</span><span class="p">.</span><span class="nc">Entry</span><span class="p">&lt;</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">&gt;):</span> <span class="nc">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">entry</span><span class="p">.</span><span class="n">key</span> <span class="p">+</span> <span class="n">entry</span><span class="p">.</span><span class="n">key</span>
+<span class="p">}</span>
+
+<span class="kd">val</span> <span class="py">intMap</span> <span class="p">=</span> <span class="nc">HashMap</span><span class="p">&lt;</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">&gt;()</span>
+<span class="n">intMap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="n">intMap</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="o">::</span><span class="n">add</span><span class="p">).</span><span class="nf">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">print</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="减少性能开销"><span class="me-2">减少性能开销</span><a href="#减少性能开销" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+<p>Kotlin 中使用 Lambda 匿名的本质事实上也是在调用时动态创建一个匿名类作为承载体。不断的实例确实是相当耗费性能的。
+此时一个新的标记登场：<code class="language-plaintext highlighter-rouge">inline</code>。
+但事实上，我不会推荐在每个地方都打上 <code class="language-plaintext highlighter-rouge">inline</code> 。因为如果你预期的内连方法体中并没有新的 Lambda 函数参数，在最新的 Kotlin 中，这样的性能开销早已微不足道。
+但是这篇教学依然会向你展示 <code class="language-plaintext highlighter-rouge">inline</code> 的标记点：</p>
+<div class="language-kotlin highlighter-rouge"><div class="code-header">
+        <span data-label-text="Kotlin"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="已複製！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="k">inline</span> <span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span> <span class="nc">Map</span><span class="p">.</span><span class="nc">Entry</span><span class="p">&lt;</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">&gt;):</span> <span class="nc">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">entry</span><span class="p">.</span><span class="n">key</span> <span class="p">+</span> <span class="n">entry</span><span class="p">.</span><span class="n">key</span>
+<span class="p">}</span>
+
+<span class="kd">val</span> <span class="py">intMap</span> <span class="p">=</span> <span class="nc">HashMap</span><span class="p">&lt;</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">&gt;()</span>
+<span class="n">intMap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="n">intMap</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="o">::</span><span class="n">add</span><span class="p">).</span><span class="nf">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">print</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/%E5%92%A9%E7%8B%BC%E5%8D%9A%E5%AE%A2/">咩狼博客</a>,
+          <a href="/categories/%E6%8A%98%E8%85%BE/">折腾</a>,
+          <a href="/categories/kotlin/">Kotlin</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/%E6%8A%80%E6%9C%AF/"
+            class="post-tag no-text-decoration"
+          >技术</a>
+        
+          <a
+            href="/tags/kotlin/"
+            class="post-tag no-text-decoration"
+          >Kotlin</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          本文章以 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         授權
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">分享</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+
+      
+
+      <a href="https://bsky.app/intent/compose?text=Kotlin%E4%B8%ADLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8Eobject%E8%A1%A8%E8%BE%BE%E5%BC%8F%20-%20%E7%8B%BC%E4%B8%8E%E5%87%A4%E6%A2%A8%E7%94%B0%20https%3A%2F%2Fwolf.snowlyicewolf.club%2F%2Fposts%2Fkotlin_lambda%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Bluesky" aria-label="Bluesky">
+        <i class="fa-fw fa-brands fa-bluesky"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="分享連結"
+      data-title-succeed="已複製連結！"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
+</article>
+
+
+            
+          </main>
+
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
+            <div class="access">
+              <!-- Get 5 last posted/updated posts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">最近更新</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/dlang_with_vscode/">DLang+VSCode 快速上爪指北</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/apple_make_bedrock/">折腾心得-黑苹果装机简要报告</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/what_pa/">什么是动物保护？</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/kotlin_lambda/">Kotlin中Lambda表达式与object表达式</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/git_remote_error/">Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal - The requested URL returned error - 403</a>
+        </li>
+      
+    </ul>
+  </section>
+  <!-- #access-lastmod -->
+
+
+              <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">熱門標籤</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/java/">Java</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E6%97%A5%E5%B8%B8/">日常</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/kotlin/">Kotlin</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E7%8B%BC%E7%99%AB%E7%96%AF/">狼癫疯</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/dlang/">DLang</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/git/">Git</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/gradle/">Gradle</a>
+      
+    </div>
+  </section>
+
+
+            </div>
+
+            
+              
+              
+
+
+
+
+
+
+  <section id="toc-wrapper" class="ps-0 pe-4">
+    <h2 class="panel-heading ps-3 mb-2">文章摘要</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">相關文章</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/posts/java_kotlin_photo_cutout/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1702629529"
+  data-df="YYYY/MM/DD"
+  
+>
+  2023/12/15
+</time>
+
+              <h4 class="pt-0 my-2">Java/Kotlin图像裁切</h4>
+              <div class="text-muted">
+                <p>今天被朋友委托编写一个图像裁切程式，自动化处理一些聚合图像（如BitMap Textures）。原本是想套Python，但是朋友电脑没有Python，也没有安装的打算。我们都是Java玩家，因此我决定以Java的方式处理它。
+当然，作为Kotlin忠实玩家，这里我选用了Kotlin作为开发语言。
+原本我期望在Graphics2D中完成裁切，但是无论我怎么操作，都只能得到一团黑幕。最后使用Pa...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/posts/python_create_maven/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1695806460"
+  data-df="YYYY/MM/DD"
+  
+>
+  2023/09/27
+</time>
+
+              <h4 class="pt-0 my-2">使用文件引索作为共享网盘与Maven仓库！</h4>
+              <div class="text-muted">
+                <p>有时候我会为Minecraft的开发或者一般项目开发而设计一些Lib，但是我没有很好的仓库存储它们。通常我会发布到Github Package，但是Github Package不便于其他人拉取，并且很多时候会引起Gradle不悦而拉取抽风。Jitpack会在远端构建，有时候会出一些奇怪的问题或者因为一些年久失修的源服务器无法访问而无法构建（本地可以借助本地仓库来取代年久失修的项目，因此是正常...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/posts/aj4j/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1692941040"
+  data-df="YYYY/MM/DD"
+  
+>
+  2023/08/25
+</time>
+
+              <h4 class="pt-0 my-2">Amarok's Json4J</h4>
+              <div class="text-muted">
+                <p>因为我对目前存在的Json库都有不满的地方，因此我认为自己写一个库是最好的！
+由于我并不负责商务化项目以及大型项目，对加载时间没有严格要求，但是追求更小，更轻，但是能做更多事的一个库。
+Amarok Json4J就是我的第一步，一个小巧的Json解析库。
+项目地址：https://github.com/AmarokIce/AmarokJsonForJava
+
+解析Json，只需取得JSON类...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/posts/git_remote_error/"
+      class="btn btn-outline-primary"
+      aria-label="上一篇"
+    >
+      <p>Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal - The requested URL returned error - 403</p>
+    </a>
+  
+
+  
+    <a
+      href="/posts/what_pa/"
+      class="btn btn-outline-primary"
+      aria-label="下一篇"
+    >
+      <p>什么是动物保护？</p>
+    </a>
+  
+</nav>
+
+            
+              
+              <!-- The comments switcher -->
+
+
+            
+
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>
+    © 2024 With Wolf. 
+  </p>
+  <p>
+    動力源自 <a href="https://www.mcmod.cn/class/1111.html">ManaMetalMod</a> & <a href="https://www.mcmod.cn/class/279.html">FoodPlus</a>.
+  </p>
+</footer>
+
+          </div>
+        </div>
+
+        <!-- The Search results -->
+
+<div id="search-result-wrapper" class="d-flex justify-content-center d-none">
+  <div class="col-11 content">
+    <div id="search-hints">
+      <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">熱門標籤</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/java/">Java</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E6%97%A5%E5%B8%B8/">日常</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/kotlin/">Kotlin</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/%E7%8B%BC%E7%99%AB%E7%96%AF/">狼癫疯</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/dlang/">DLang</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/git/">Git</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/gradle/">Gradle</a>
+      
+    </div>
+  </section>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
+
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">發現新版本更新。</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      更新
+    </button>
+  </div>
+</aside>
+
+    
+
+    <!-- JavaScripts -->
+    <!-- JS selector for site. -->
+
+<!-- commons -->
+
+
+
+<!-- layout specified -->
+
+
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/zh.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.29.0/dist/tocbot.min.js"></script>
+
+
+
+
+
+
+
+<script src="/assets/js/dist/post.min.js"></script>
+
+
+  <!-- MathJax -->
+  <script src="/assets/js/data/mathjax.js"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+
+
+<!-- Pageviews -->
+
+  
+
+  
+    
+  
+
+
+
+
+
+
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script>SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('search-results'),
+    json: '/assets/js/data/search.json',
+    searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{snippet}</p>  </article>',
+    noResultsText: '<p class="mt-5">沒有搜尋結果</p>',
+    templateMiddleware: function(prop, value, template) {
+      if (prop === 'categories') {
+        if (value === '') {
+          return `${value}`;
+        } else {
+          return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+        }
+      }
+
+      if (prop === 'tags') {
+        if (value === '') {
+          return `${value}`;
+        } else {
+          return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+        }
+      }
+    }
+  });
+</script>
+
+  </body>
+</html>
+

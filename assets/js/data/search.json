@@ -1,0 +1,293 @@
+[
+  
+  {
+    "title": "DLang+VSCode 快速上爪指北",
+    "url": "/posts/dlang_with_vscode/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "DLang",
+    "date": "2024-09-10 18:30:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "D 语言一直是一门不温不火但又相当优雅，集成了 C++， Java，C# 与 Python 的语言特性，获取它们的优点，解决了很多编程时的痛苦之处。但也正因为它的不温不火，导致它的第三方库大多年久失修，官方文档上也有一些 VSCode 开发方面没有讲清的地方。再折腾了一天之后我决定记录成一篇文章。首先按照官方文档为 VSCode 安装插件 D Programming Language (co...",
+    "content": "D 语言一直是一门不温不火但又相当优雅，集成了 C++， Java，C# 与 Python 的语言特性，获取它们的优点，解决了很多编程时的痛苦之处。但也正因为它的不温不火，导致它的第三方库大多年久失修，官方文档上也有一些 VSCode 开发方面没有讲清的地方。再折腾了一天之后我决定记录成一篇文章。首先按照官方文档为 VSCode 安装插件 D Programming Language (code-d) 。如果你从未安装过 D 语言，那么在安装这个插件之后应该会自动跳转到 DMD 下载界面。如果什么也没有发生，你可以手动过去。点我前往不知道下载哪个？如果你是一个新手，不愿意折腾 GCC 一类的 C 语言社区环境，那么使用 DMD 是极佳的。随后，找个好地方。然后打开你的终端（或 cmd），输入 dub init(或者 dub init 你的项目名称, 尽量不要大写/中文字符) 进行项目初始化。你可以全部回车，直到向导结束。现在，使用 VSCode 打开项目。为你的 VSCode 配置 code-d 与 server-d。当然，如果你不在乎它们的位置，那就让 VSCode 的插件自己下载就好，你需要做的就是去泡一杯咖啡然后等它自己编译。一切都很好。现在，我们进入 Debugging 选项卡（如果你不知道是什么，Ctrl Shift D 进入），选择创建 launch.json，选择创建 DuB Debugging。现在，你的 ./.vscode/launch.json 的内容看起来应该是这样：{    \"version\": \"0.2.0\",    \"configurations\": [        {            \"type\": \"code-d\",            \"request\": \"launch\",            \"dubBuild\": true,            \"name\": \"Build &amp; Debug DUB project\",            \"cwd\": \"${command:dubWorkingDirectory}\",            \"program\": \"${command:dubTarget}\"        }    ]}如果你找不到，可能是因为你已经打开了 .d 文件。保持选项卡中没有文件被打开，然后再试一次。接下来我们配置 tasks.json。可以手动创建或使用 VSCode 的指令创建。然后复制下面的内容黏贴过去：{    \"version\": \"2.0.0\",    \"tasks\": [        {            \"label\": \"dub build\",\t\t\t\"type\": \"dub\",\t\t\t\"run\": false,\t\t\t\"compiler\": \"$current\",\t\t\t\"archType\": \"$current\",\t\t\t\"buildType\": \"$current\",\t\t\t\"configuration\": \"$current\",\t\t\t\"problemMatcher\": [\t\t\t\t\"$dmd\"\t\t\t],\t\t\t\"group\": \"build\",\t\t\t\"detail\": \"dub build --compiler=C:\\\\D\\\\dmd2\\\\windows\\\\bin\\\\dmd.exe -a=x86_64 -b=debug -c=application\"\t\t}    ]}注意: detail 处的 dmd.exe 路径改为你的 dmd 安装路径。接着回到 launch.sjon, 为刚配置的 configurations 增加一条：{    \"version\": \"0.2.0\",    \"configurations\": [        {            \"type\": \"code-d\",            \"request\": \"launch\",            \"dubBuild\": true,            \"name\": \"Build &amp; Debug DUB project\",            \"preLaunchTask\": \"dub build\",            \"cwd\": \"${command:dubWorkingDirectory}\",            \"program\": \"${command:dubTarget}\"        }    ]}大功告成！现在我们在 ./source/app.d 中写点什么：import std.stdio;void main(){\twriteln(\"Hello D World!\");}现在，你可以使用 VSCode 的运行与调试来执行你的代码了！大功告成！"
+  },
+  
+  {
+    "title": "折腾心得-黑苹果装机简要报告",
+    "url": "/posts/apple_make_bedrock/",
+    "categories": "基岩博客, 技术",
+    "tags": "基岩博客",
+    "date": "2024-06-22 18:30:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "[折腾心得] 2024年黑苹果装机简要报告By BEclR0Ck前言最近看到了针对 6700XT 等 Navi22 核心系列显卡的驱动支持，算是给黑果加上了根续命稻草。又回想起当时买这张卡的初衷，就决定把黑苹果捡回来了。简要分享下流程吧。配置检查遗憾的是，近两年电脑的主流配置大部分都无法驱动，而原因出现在显卡上。intel 芯片从 11 代开始就都无法驱动核显，而独显方面，N 卡比较特殊，自...",
+    "content": "[折腾心得] 2024年黑苹果装机简要报告By BEclR0Ck前言最近看到了针对 6700XT 等 Navi22 核心系列显卡的驱动支持，算是给黑果加上了根续命稻草。又回想起当时买这张卡的初衷，就决定把黑苹果捡回来了。简要分享下流程吧。配置检查遗憾的是，近两年电脑的主流配置大部分都无法驱动，而原因出现在显卡上。intel 芯片从 11 代开始就都无法驱动核显，而独显方面，N 卡比较特殊，自从 Apple 和 Nvidia 摩擦后，能免驱的就只有比较老的开普勒架构的 N 卡了，而且只能免驱到 MacOS 11，即使是打补丁，高于 GTX1080 的 N 卡也无法驱动，而在 MacOS 12-14 下驱动 N 卡，则需要安装 Opencore legacy patcher 但也无法加速，所以有条件建议更换 A 卡。 虽然 N 卡在黑苹果下生存比较艰难，但驱动起来相对还是比较容易的。但如果你的电脑同时叠了 11/12/13 代 + RTX20/30/40 系的双 buff 的话，恭喜你与黑苹果无缘了。U盘制作简单的刻录在这里就不提了。主要的问题在EFI制作上。这里要感谢 @JeoJay 大佬开发的 RapidEFI，你可以用这个工具一键检测你的环境来生成你所需要的 EFI 文件。根据你自己的配置，轻轻点击就可以生成出你需要的 EFI 了。得到后，用 DiskGenius 将之前刻录好的U盘内的 EFI 文件夹删除，替换为你自己的 EFI 就可以了。分区请注意，在你要安装系统的磁盘里，不能存在小于200MB的区，请在WinPE环境下，将Windows的EFI分区扩容至200MB以上，并备份你的Windows引导，避免出现macOS顶号导致Windows无法正常引导的情况比如我。安装安装之前，还有些必要工作要做。  重启电脑，进入你的BIOS，确保以下选项的开关正确，若你的品牌BIOS中没有对应选项可忽略。            Disable      关闭      Enable      开启                         Fast Boot      快速启动      VT-x      VT-x      虚拟化技术              Secure Boot      安全启动      Above 4G      4G以上解码                     Serial/COM Port \t串行/COM端口      Hyper-Threading      超线程                            Parallel Port      并行端口      Execute Disable Bit      执行禁用位                     CSM      兼容性支持模块                                   Intel SGX      英特尔SGX                                   Inter Platform Trust      英特尔平台信任                                   CFG Lock      CFG锁                           更改完成后，保存这些选项，重启电脑，按下主板对应的不同按键来选择启动项，这里选择你刚刚制作好的U盘，若没有其他问题，你会看到这个画面。  选择Install macOS+对应系统代号，我们便可进入安装界面。  选择“磁盘工具”，在里面找到我们提前为系统准备好的分区，抹掉这个分区，格式选择APFS，待操作完成后返回页面。          *假设您的磁盘是空的或者数据是已经备份过的,别怪我没提醒。        选择“安装macOS”，同意出现的条款，安装便开始了。中途会重启多次，重启后，请在引导界面选择macOS Installer继续安装系统，在安装期间，常会自动重启3-4遍。安装时间取决于固态硬盘的读写速度，请务必耐心等待。  安装完成后，你会看到安装向导，跟着向导一步一步走，能跳过的跳过，直到设置向导完成。这时候，桌面就出现了。后期工作系统安装后,你可以先喝杯咖啡兴奋会儿，因为很快又有新的任务要做。  先打开终端，输入命令： ` ` sudo spctl –master-disable # 启用macOS安装应用允许任何来源 然后会要求你输入密码，请注意：密码不会显示在屏幕上。  继续输入命令： ` ` sudo rm -rf /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist ` ` sudo pmset -b hibernatemode 0 # 内存供电，内存镜像不写入硬盘 ` ` sudo pmset -b acwake 0 # 关闭被同一 iCloud 下的设备唤醒  完成这些操作后，重启，这样系统就处于一个可用状态了。  在完成上述操作后，进入WinPE，找到你的EFI分区，将你U盘内的EFI放进磁盘的EFI分区中，就大功告成了。          *目的是脱离U盘引导使用macOS。        完成后关机，拔掉U盘后再开机，此时的默认引导已经变成OC引导，你可以在此选择启动Windows还是macOS了。后话2024年可能是黑与白交替的一年，黑苹果已经慢慢步入迟暮，苹果已经逐渐停止对 Intel 架构的全面支持，未来一段时间内，可能 MacOS 将只支持 Arm 平台，随着苹果开始打通中低端市场，愿意用黑苹果的人也会越来越少，且用且珍惜吧。"
+  },
+  
+  {
+    "title": "什么是动物保护？",
+    "url": "/posts/what_pa/",
+    "categories": "咩狼博客, 以狼观世",
+    "tags": "日常, SPAC, 动物保护",
+    "date": "2024-05-01 21:53:18 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "很多时候我都能在各种地方发现各种对于“动物保护”有着各种理解，因此我认为我有必要澄清我对动物保护的理解与概念。这篇文章的内容与主旨可能是受争议的，请在完全理解文章内容前不要发表任何具有争议性的短评。所谓动物保护，事实上也是一种对自然的保护，人类对于自然的付出进行的回馈，动物保护的核心主旨是被动且根源性的。而不是某些极端之人所认为的：动物保护就是素食主义。这是完全错误的认知，照这么说，植物的命...",
+    "content": "很多时候我都能在各种地方发现各种对于“动物保护”有着各种理解，因此我认为我有必要澄清我对动物保护的理解与概念。这篇文章的内容与主旨可能是受争议的，请在完全理解文章内容前不要发表任何具有争议性的短评。所谓动物保护，事实上也是一种对自然的保护，人类对于自然的付出进行的回馈，动物保护的核心主旨是被动且根源性的。而不是某些极端之人所认为的：动物保护就是素食主义。这是完全错误的认知，照这么说，植物的命也是命，什么都不要吃了最好，自己死了还能成为自然的养料。弱肉强食是自然法则中食物链的铁律，弱小的动物被强大的动物圈养与捕猎是自然运转的正常工作流。通常会有人曲解这一工作流，指责动物保护者“只保护猫狗等家宠，不关系鸡鸭等家禽”。“圈养”与“增殖保护”这一长期生存的狩猎策略并不是人类的专利，大多肉食动物都有相同的意识，同样的意识对于草食动物迁移换草中也得以体现。人是杂食动物，人可以肉食偏好，也可以素食偏好，那无论人吃肉还是吃素，都是天经地义。“这不过是为自己吃肉找借口！”这样的反馈也很常见。事实上，这样的反馈依然是在曲解自然的工作流，那么我在此放一个问题：请问，除了被动的气候之外，是谁在促进主动或被动的促使动物灭绝？人们打着保护草食动物的名义将黄狼赶尽杀绝，又因为人类的发展活动促使南极狼表亲们消失不见。又是因为人类的工业活动促使气候不断改变，大量动物死于人类的殖民需求。这在自然中几乎不常见，只有人类才会大规模的，甚至比人类团体更大规模的，去促使自然毁灭，促使动物消失。为什么 PRH（Pet Rescue Home， 家宠救助之家）与 SPCA（the Society for the Prevention of Cruelty to Animals，爱护动物协会）更大的去关注流浪动物？那么再次逆推，流浪动物的“流浪”是因为什么出现的？因为人类的遗弃与虐待。流浪动物会制造什么麻烦？很多人恐怕都回答不上这个问题，除了动物发情期很烦之外。很多老人都喜欢救助流浪动物，以喂食的方式。但是喂食不是收容，这会促使流浪动物处于一种“吃饱喝足”的状态，此时流浪动物会逐渐退化本性到“半社区化宠物”——它们有领地意识；它们知道谁是好人，谁是坏人；它们无法做出贡献，诸如捉老鼠；它们会因为好玩而袭击鸟类，即便一些鸟类早已是珍惜动物。再者，如果经常关注 SPCA 的新闻，会了解到 SPCA 经常性的从战地带走迷失的流浪动物。因为人类的殖民需要而发起的战争，除了把无辜之人推向刀口，对动物与动物生态都是极大的威胁。归根结底，保护动物是人类亏钱于大自然的。每个人都有义务去还清这份“债务”，也应该有这种“欠债”的意识。无论做了多少，无论做了什么，积土成山，唯有大家努力，才能有一篇祥和的生存环境。记住，如果大自然毁灭了，那么人类也别想有好日子过。"
+  },
+  
+  {
+    "title": "Kotlin中Lambda表达式与object表达式",
+    "url": "/posts/kotlin_lambda/",
+    "categories": "咩狼博客, 折腾, Kotlin",
+    "tags": "技术, Kotlin",
+    "date": "2024-03-31 11:17:14 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。在网上查找了很久，除了复制黏贴的文章之外什么也没找到，最后还是脑子里的凤梨全回到该到的地方才想起来怎么用。在Kotlin中灵活使用 Lambda 表达式也是非常重要的，而Kotlin有多重集成API。如果你不是一个 Java 的老开发者，也不太了解 Jav...",
+    "content": "出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。在网上查找了很久，除了复制黏贴的文章之外什么也没找到，最后还是脑子里的凤梨全回到该到的地方才想起来怎么用。在Kotlin中灵活使用 Lambda 表达式也是非常重要的，而Kotlin有多重集成API。如果你不是一个 Java 的老开发者，也不太了解 Java8 发生啥事，那么你可能不知道 Lambda 是什么，或者说你经常使用，但你不知道它其实就叫 Lambda 。无论如何，这一篇解析将会透彻讲解 Kotlin 的Lambda 。如果你觉得我写的还不错，那就让我来 λλ 你的凤梨 记得分享我的文章。Lambda 本质是一种匿名的代码块传递。首先我们来看一组例子：open class FunnyClassclass NotFunnyClass {}fun funnyFunction() {}var funnyVariable = { i: Int -&gt;    i + 1}快问快答！上面四组非常有趣（或者没那么有趣）的例子中哪个是真正的Lambda——答案是可变变量 funnyVariable！ 此处使用了一个 Lambda 将一个执行代码块传入了变量 funnyVariable。那么我们要如何使用 funnyVariable ？var funnyVariable = { i: Int -&gt;    i + 1}val o = funnyVariable(1)如果你有一种疑问：“这和方法有什么区别？”事实上 Lambda 的运用不止如此——而将 Lambda 传入对象也是一种精妙的设计！再来看这样的例子：val data = HashMap&lt;String, (Int) -&gt; Unit&gt;()注意到这和一般的申明 HashMap 有什么不同吗？ 它的值不是一个标准 Object，而是一个Lambda！那么我们现在使用这样的data HashMap：val data = HashMap&lt;String, (Int) -&gt; Unit&gt;()run {    data[\"test\"] =  { // 传入参数只有一种时，Kotlin会静默将其申明为 it        val i = it + 514        print(i)    }    val dat = data[\"test2\"]?.let { // 巧妙的 Lambda Let 会在文章的后面讲到！        it(114)    } ?: -1  // 因为 dada 中没有 test2 ，所以此处返回值永远都是 -1}这在 Java 中要如何实现？好吧，我们需要先实现一个接口来承载方法。内联方法体与 Java 一样，在调用 Lambda 的时候允许直接传入 Lambda 对象内联方法体，也就是使用 ::Method 上实例：fun add(entry: Map.Entry&lt;Int, Int&gt;): Int {    return entry.key + entry.key}val intMap = HashMap&lt;Int, Int&gt;()intMap[1] = 1intMap.map(::add).forEach(::print)减少性能开销Kotlin 中使用 Lambda 匿名的本质事实上也是在调用时动态创建一个匿名类作为承载体。不断的实例确实是相当耗费性能的。此时一个新的标记登场：inline。但事实上，我不会推荐在每个地方都打上 inline 。因为如果你预期的内连方法体中并没有新的 Lambda 函数参数，在最新的 Kotlin 中，这样的性能开销早已微不足道。但是这篇教学依然会向你展示 inline 的标记点：inline fun add(entry: Map.Entry&lt;Int, Int&gt;): Int {    return entry.key + entry.key}val intMap = HashMap&lt;Int, Int&gt;()intMap[1] = 1intMap.map(::add).forEach(::print)"
+  },
+  
+  {
+    "title": "Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal - The requested URL returned error - 403",
+    "url": "/posts/git_remote_error/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "技术, Git",
+    "date": "2024-03-25 09:33:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "在我将我的代码转入团队后，即便我为我的账号分配了 Admin ，我依然无法提交代码。但是奇怪的是，如果我使用令牌验证，就可以。错报如下：remote: Permission to xxxxx.git denied to xxx.fatal: unable to access 'https://github.com/xxx.git/': The requested URL returned e...",
+    "content": "在我将我的代码转入团队后，即便我为我的账号分配了 Admin ，我依然无法提交代码。但是奇怪的是，如果我使用令牌验证，就可以。错报如下：remote: Permission to xxxxx.git denied to xxx.fatal: unable to access 'https://github.com/xxx.git/': The requested URL returned error: 403好嘛，难道要把团队的仓库挪回个人？Bing了很久才偶遇一个解决方案，特此记录一下。首先进入项目根目录，打开隐藏文件夹 .git ，找到无后缀名文档 config ，打开。在 [remote \"origin\"] （取决于你的本地分支名称） 下，找到 url 。里面原本的内容应该是 https://github.com/所有者名称/项目名称.git , 改成下述形式即可： https://推送者名称@github.com/所有者名称/项目名称.git再次 push ，成功。收工睡觉喽——"
+  },
+  
+  {
+    "title": "悲报",
+    "url": "/posts/sad_pineapple/",
+    "categories": "咩狼博客, 狼癫疯",
+    "tags": "狼癫疯",
+    "date": "2024-03-14 22:40:40 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "老狼于2024年3月14日10点40分时饿了，但是没有零食，特此记录，以表愤怒。",
+    "content": "老狼于2024年3月14日10点40分时饿了，但是没有零食，特此记录，以表愤怒。"
+  },
+  
+  {
+    "title": "计算字符串运算！",
+    "url": "/posts/cal_string/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "Java, Kotlin",
+    "date": "2024-02-16 21:01:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "心血来潮想重构JsonLang处理器，看到蹭写的答辩计算器，决定重构。使用方法迭代来处理优先运算，使用统一加法运算来处理每个运算节点。废话不多，上码：package club.someoneice.jsonprocessor.multipleobject CalculatorV2 {    fun calculator(str: String): Double {        val ne...",
+    "content": "心血来潮想重构JsonLang处理器，看到蹭写的答辩计算器，决定重构。使用方法迭代来处理优先运算，使用统一加法运算来处理每个运算节点。废话不多，上码：package club.someoneice.jsonprocessor.multipleobject CalculatorV2 {    fun calculator(str: String): Double {        val newStr = str.replace(\" \", \"\")        val steps: ArrayList&lt;Double&gt; = ArrayList()        val numberBuffer = StringBuilder()        val advancedBuffer = StringBuilder()        var isArray = false        fun checkCalculator(c: Char) {            if (advancedBuffer.isEmpty()) {                if (numberBuffer.isEmpty()) throw CalculatorException(\"Unexpected symbols: $c in formula $str\")                steps.add(numberBuffer.toString().toDouble())                numberBuffer.clear()                return            }            val symbolSuf = advancedBuffer[advancedBuffer.length - 1]            val symbolPre = advancedBuffer[0]            var strReplace = advancedBuffer.removeSuffix(symbolSuf.toString()).toString()            if (symbolPre == '-') strReplace = strReplace.removePrefix(symbolPre.toString())            val numberA = strReplace.toDouble()            val numberB = numberBuffer.toString().toDouble()            var callback: Double = when (symbolSuf) {                '*' -&gt; numberA * numberB                '/' -&gt; numberA / numberB                else -&gt; throw CalculatorException(\"Unexpected symbols: $c in formula $str\")            }            numberBuffer.clear()            advancedBuffer.clear()            if (symbolPre == '-') callback *= -1            if (c == '*' || c == '/') advancedBuffer.append(callback).append(c)            else steps.add(callback)        }        fun subtractHandler(c: Char) {            if (numberBuffer.isNotEmpty()) checkCalculator(c)            numberBuffer.append(c)        }        fun advancedHandler(c: Char) {            if (advancedBuffer.isEmpty()) {                advancedBuffer.append(numberBuffer.toString()).append(c)                numberBuffer.clear()            }            else checkCalculator(c)        }        fun handlerArray(c: Char) {            if (c == ')') {                val start = numberBuffer.length - numberBuffer.toString().replace(\"(\",\"\").length                val end = numberBuffer.length - numberBuffer.toString().replace(\")\",\"\").length                val count = start - end                if (count &lt; 0) throw CalculatorException(\"Unexpected symbols: $c in formula $str\")                if (count == 0) {                    val strArray = numberBuffer.toString();                    numberBuffer.clear().append(calculator(strArray))                    isArray = false                } else numberBuffer.append(c)            } else numberBuffer.append(c)        }        fun startArray(c: Char) {            if (numberBuffer.isNotEmpty()) advancedHandler(c)            isArray = true        }        for (c in newStr.indices) {            val char = newStr[c]            if (isArray) handlerArray(char)            else when (char) {                '(' -&gt; startArray(char)                '*', '/' -&gt; advancedHandler(char)                '+' -&gt; checkCalculator(char)                '-' -&gt; subtractHandler(char)                else -&gt; numberBuffer.append(char)            }        }        checkCalculator('=')        var number = 0.0        steps.forEach {            number += it        }        return number    }    class CalculatorException(cause: String): Exception(cause)}"
+  },
+  
+  {
+    "title": "Java/Kotlin图像裁切",
+    "url": "/posts/java_kotlin_photo_cutout/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "Java, Kotlin, 图像处理",
+    "date": "2023-12-15 16:38:49 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "今天被朋友委托编写一个图像裁切程式，自动化处理一些聚合图像（如BitMap Textures）。原本是想套Python，但是朋友电脑没有Python，也没有安装的打算。我们都是Java玩家，因此我决定以Java的方式处理它。当然，作为Kotlin忠实玩家，这里我选用了Kotlin作为开发语言。原本我期望在Graphics2D中完成裁切，但是无论我怎么操作，都只能得到一团黑幕。最后使用Para...",
+    "content": "今天被朋友委托编写一个图像裁切程式，自动化处理一些聚合图像（如BitMap Textures）。原本是想套Python，但是朋友电脑没有Python，也没有安装的打算。我们都是Java玩家，因此我决定以Java的方式处理它。当然，作为Kotlin忠实玩家，这里我选用了Kotlin作为开发语言。原本我期望在Graphics2D中完成裁切，但是无论我怎么操作，都只能得到一团黑幕。最后使用Param Overload的形式解决了。上代码：val fileStream = Files.newInputStream(file.toPath())val imageStream = ImageIO.createImageInputStream(fileStream)val reader = ImageIO.getImageReaders(imageStream).next()reader.setInput(imageStream, true)val param = reader.defaultReadParamparam.setSourceRegion(Rectangle(baseX, baseY, imageBaseX, imageBaseY))val outputImage = reader.read(0, param)ImageIO.write(outputImage, \"PNG\", File(fileOutput, \"$id.png\"))imageStream.close()fileStream.close()"
+  },
+  
+  {
+    "title": "使用文件引索作为共享网盘与Maven仓库！",
+    "url": "/posts/python_create_maven/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "Java, Gradle, 技术",
+    "date": "2023-09-27 17:21:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "有时候我会为Minecraft的开发或者一般项目开发而设计一些Lib，但是我没有很好的仓库存储它们。通常我会发布到Github Package，但是Github Package不便于其他人拉取，并且很多时候会引起Gradle不悦而拉取抽风。Jitpack会在远端构建，有时候会出一些奇怪的问题或者因为一些年久失修的源服务器无法访问而无法构建（本地可以借助本地仓库来取代年久失修的项目，因此是正常...",
+    "content": "有时候我会为Minecraft的开发或者一般项目开发而设计一些Lib，但是我没有很好的仓库存储它们。通常我会发布到Github Package，但是Github Package不便于其他人拉取，并且很多时候会引起Gradle不悦而拉取抽风。Jitpack会在远端构建，有时候会出一些奇怪的问题或者因为一些年久失修的源服务器无法访问而无法构建（本地可以借助本地仓库来取代年久失修的项目，因此是正常构建）。如果要推送到Maven中央仓库，又得经过一波折腾，相比之下使用自己的服务器搭建私有仓库是最好的选择。Nexus是最受欢迎的选择，而Artifactor的出现大规模取代了Nexus的热度。但是经过一波操作之后发现——这玩意是真难用。且不提特定版本下Gradle不悦而抽风导致无法推送，它对性能的开销也不小。文件引索式访问应该是不错的选择，它闻起来就像是在浏览器里输入 file:///C:/ 一样。它就像FTP或者毫无装饰的共享网盘——借FTP和MavenPullingToLocal的力量就可以打包一套依赖发送到服务器，这样就能直接借助这套功能完成！同样的，也可以使用Github或者Gitee等公共Git网站托管，但是我更喜欢自己折腾一下CentOS。使用SimpleHTTPServerLinux中使用SimpleHTTPServer就可以做到这样的效果，而这是一套Python程式，因此先安装Python环境：#~&gt; yum install python39 注意：不要安装3.11，最新版本还不具备足够的稳定性和pip！接下来就是非常简单的内容，通过pip拉取SimpleHTTPServer，然后指定端口，启动！#~&gt; python3 -m pip insall simple-http-server// 开放到8000端口，目前cd在哪就是从往哪开#~&gt; python3 -m http.server 8000// python -m SimpleHTTPServer 8000   非Python3环境用这个// 后台托管#~&gt; python3 -m http.server 8000 &amp;// 完全后台托管#~&gt; nohup python -m http.server 8000 &amp;此时访问http://127.0.0.1:8000就能看到自己的文件引索了！借助Socket还可以让SimpleHTTPServer开放你的站点！在Maven中使用引索推送到本地后把Maven套件拷贝到服务器，然后开启SimpleHTTPServer，接着只需要在Maven里加入你的地址即可！// Othermaven {    url 'http://127.0.0.1:8000/'}例如我的仓库：http://maven.snowlyicewolf.club/"
+  },
+  
+  {
+    "title": "Unity老师，发生肾么事了（憋笑）",
+    "url": "/posts/unity_man/",
+    "categories": "旧闻",
+    "tags": "技术",
+    "date": "2023-09-13 12:40:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "中午我的一位獠牙好友为我分享了一个关于Unity的新闻：一下真的没蚌住。我一直是不太喜欢 Unity 开发的，因此我很早就回到了 GamaMaker Stadio 2 的工程，在我了解到 LibGDX 之后我甚至放弃了 GMS2 的工程而全心全意的在 LibGDX 里滚打摸爬。看到这个新闻一下真没蚌住，想当初有多少 GMS2 开发者了解到 Unity 之后就放弃了 GMS2 的工程跳到 Un...",
+    "content": "中午我的一位獠牙好友为我分享了一个关于Unity的新闻：一下真的没蚌住。我一直是不太喜欢 Unity 开发的，因此我很早就回到了 GamaMaker Stadio 2 的工程，在我了解到 LibGDX 之后我甚至放弃了 GMS2 的工程而全心全意的在 LibGDX 里滚打摸爬。看到这个新闻一下真没蚌住，想当初有多少 GMS2 开发者了解到 Unity 之后就放弃了 GMS2 的工程跳到 Unity 开发，甚至不惜自学 C++/C# 来编写程序。"
+  },
+  
+  {
+    "title": "Amarok's Json4J",
+    "url": "/posts/aj4j/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "Java, 博客, 技术",
+    "date": "2023-08-25 13:24:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "因为我对目前存在的Json库都有不满的地方，因此我认为自己写一个库是最好的！由于我并不负责商务化项目以及大型项目，对加载时间没有严格要求，但是追求更小，更轻，但是能做更多事的一个库。Amarok Json4J就是我的第一步，一个小巧的Json解析库。项目地址：https://github.com/AmarokIce/AmarokJsonForJava解析Json，只需取得JSON类即可。通过...",
+    "content": "因为我对目前存在的Json库都有不满的地方，因此我认为自己写一个库是最好的！由于我并不负责商务化项目以及大型项目，对加载时间没有严格要求，但是追求更小，更轻，但是能做更多事的一个库。Amarok Json4J就是我的第一步，一个小巧的Json解析库。项目地址：https://github.com/AmarokIce/AmarokJsonForJava解析Json，只需取得JSON类即可。通过JSON.json与JSON.json5来取得一个JSON支持。json5时会逐行读取以扫描并排除注解。只需简单的pares即可取得JsonNode，然后做一切你想要的。tryPullAsClass可以帮助我们直接从JsonNode到Class。未来还会支持从Class到JsonNode与写入文件，让整个Json语法流更加通透与方便。Json的写入只需要通过JsonBuilder，并传入预先准备好的JsonNode（ArrayNode或MapNode），通过asString获取Json链，通过prettyPrint来输出格式化的Json文本。实现Json5Builder进行流编写。Json5Builder传回的文本必定是格式化的，且支持在流中换行与注解！未来会开放IJson5Bean的使用，自己创造属于自己的工作流工厂！"
+  },
+  
+  {
+    "title": "我要吃凤梨！",
+    "url": "/posts/where_is_pineapple/",
+    "categories": "咩狼博客, 狼癫疯",
+    "tags": "狼癫疯",
+    "date": "2023-07-21 11:05:40 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "我很愤怒，因为我没有零食可以吃了！所以我写了这篇文章，表达我的愤怒之情！",
+    "content": "我很愤怒，因为我没有零食可以吃了！所以我写了这篇文章，表达我的愤怒之情！"
+  },
+  
+  {
+    "title": "Java/Kotlin对Png文件大小进行硬边缩放（点阵无损缩放）",
+    "url": "/posts/java_kotlin_photo_scale/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "Java, Kotlin, 图像处理",
+    "date": "2023-06-14 21:41:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "很早之前就在研究图像处理，因为这个项目是个Java项目，当时尝试了Java和Kotlin，一直在找这样的方法，甚至用了一些库，但是打包一个库进去多少不太好，就不得不Bing了一下。然而Bing提供的结果也没多靠谱，缩放的极其难看，也达不到我期望的需求。但是我找到了Java的图像处理类AffineTransformOp，问题解决，这边随爪记录一下。// 假设我们已经传入图片流到缓存Buffer...",
+    "content": "很早之前就在研究图像处理，因为这个项目是个Java项目，当时尝试了Java和Kotlin，一直在找这样的方法，甚至用了一些库，但是打包一个库进去多少不太好，就不得不Bing了一下。然而Bing提供的结果也没多靠谱，缩放的极其难看，也达不到我期望的需求。但是我找到了Java的图像处理类AffineTransformOp，问题解决，这边随爪记录一下。// 假设我们已经传入图片流到缓存BufferedImage，存储在sourceImg变量中。// 缩放的倍率。int scale = 2;// 申明AffineTransformOp，AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(scale, scale), null);// 对图片进行缩放BufferedImage img = op.filter(sourceImg, null);2023/7/2 更新上面的方法在一些情况下不是很好用，比如目标文件的尺寸不可知，如果想做和PS Ase那种目标缩放，这里找到了新的方法。废话不多，上才艺：BufferedImage remakeSize(int size, BufferedImage img) {    BufferedImage newImg = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);    newImg.getGraphics().drawImage(img.getScaledInstance(size, size, Image.SCALE_SMOOTH), 0, 0, null);    return newImg;}"
+  },
+  
+  {
+    "title": "我最喜欢的几张源自画师WolfRoad大大的狼绘画",
+    "url": "/posts/wolf_art_0/",
+    "categories": "咩狼博客, 日常",
+    "tags": "日常",
+    "date": "2023-05-23 14:14:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "WolfRoad大大真是太强了！她的每一张狼绘画都炒鸡有感觉！我放出几张我最喜欢的画作，如果你也喜欢，请不要忘记访问他的主页！",
+    "content": "WolfRoad大大真是太强了！她的每一张狼绘画都炒鸡有感觉！我放出几张我最喜欢的画作，如果你也喜欢，请不要忘记访问他的主页！"
+  },
+  
+  {
+    "title": "养猫？还是不养猫？",
+    "url": "/posts/cat_or_not/",
+    "categories": "咩狼博客, 日常",
+    "tags": "日常, 猫",
+    "date": "2023-05-04 13:59:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "白天睡觉晚上闹腾的猫咪在家里奔跑，然后跳进我的垃圾桶里翻找垃圾…虽然很生气，但是也很无奈，养了这么久，两小只都是我的家人阿。那么也借此聊聊关于养猫的好与不好，如果正在纠结要不要养猫的话也可以为自己增加一些理由。当然：如果你没有足够多的资金，请不要擅做决定。任何宠物的开销都不亚于正常人日常生活，而若出现任何意外（或自然原因的）的医药费都是人类的数十倍。养猫的好处猫是很通人性的，如果你感到不高兴...",
+    "content": "白天睡觉晚上闹腾的猫咪在家里奔跑，然后跳进我的垃圾桶里翻找垃圾…虽然很生气，但是也很无奈，养了这么久，两小只都是我的家人阿。那么也借此聊聊关于养猫的好与不好，如果正在纠结要不要养猫的话也可以为自己增加一些理由。当然：如果你没有足够多的资金，请不要擅做决定。任何宠物的开销都不亚于正常人日常生活，而若出现任何意外（或自然原因的）的医药费都是人类的数十倍。养猫的好处猫是很通人性的，如果你感到不高兴，猫咪会贴在你旁边哄你，然后要求你和它玩。猫咪通常很粘人也很爱发脾气，有时候确实挺烦的，但是你总是能抱着它们感到温暖。如果和猫咪够亲近，猫咪也会给你舔毛。经常和它们玩一些玩具吧，如果它们很爱你，会把玩具送给你，然后你再丢给它们的话，它们会要你和它们一起玩！蹲下来和猫咪说话，不那么高大的你能够让猫咪有亲近感，因为猫咪很会把你当成同类！猫咪知道你不会打猎，所以也会给你送一些吃的…和猫咪说理，猫咪会给你很好的回答。猫咪的先祖口口相传的知识能够让你在外面喝一壶，前提是你能够理解猫的语言和猫尾语言。每个小动物的可爱都流淌在血液之中，这也是与生俱来的——这能够让人类对它们更宽容，这也是求生的方式之一，丛林法则之一。没必要移除过多可爱——请为他们提供浓缩的幸福！冬天的时候也会蜷在你身边取暖，这也是很多没有猫咪的人羡慕的事情。有了猫咪之后你就可以放弃闹钟了，早上四点钟准时在你的脸上蹦迪！养猫的坏处养猫有坏处？当然有，这些小捣蛋鬼制造的麻烦也够你喝一壶了。翻找垃圾桶，这可不是只有模拟狼生里才有的。一些宠物店的贵族品种猫或许不会——某种意义来讲，人类为了让它们血统纯正，通常近亲交配，这使得它们的智力并不高，而且体弱多病，经常需要吃调理猫粮。收养流浪猫是好的！但也不一定是。让猫咪有一个归宿当然很棒！但是你得注意以下几点：1.它们来自社区，携带各种流行病毒和螨虫，收养一周后务必接种宠物用狂犬病疫苗和全身检查，并且需要准备好耳螨清洁剂。2.它们很聪明，知道怎么从你的碗里讨到吃的，或者直接自己动爪。3.它们相较于宠物店的品种猫咪会很爱玩，你得多陪陪它们，否则绝对够你喝一壶。如果你养了一只宠物，请务必负责到底！每个动物都是生命，都值得被尊重。"
+  },
+  
+  {
+    "title": "Gravatar无法访问的完美解决方针：Cravatar",
+    "url": "/posts/gravatar_to_cravatar/",
+    "categories": "咩狼博客, 折腾",
+    "tags": "日常, 博客, 技术",
+    "date": "2023-04-01 11:25:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "今天又是建设站点基本内容的一天，在老站点的时期我就对Gravatar连接过慢感到不满了。因此加入了一些插件，手搓图像优化来制作手动上传，但是这次服务器并不大，Gravatar可能是我唯一的解决方案？看似是这样的，因此我开始寻找Gravatar镜像源代替它。但是治标不治本——更换头像依然是个难题。好吧，那么有什么能够完美解决这个问题的解决方针？Gravatar被WordPress收购了，这引起...",
+    "content": "今天又是建设站点基本内容的一天，在老站点的时期我就对Gravatar连接过慢感到不满了。因此加入了一些插件，手搓图像优化来制作手动上传，但是这次服务器并不大，Gravatar可能是我唯一的解决方案？看似是这样的，因此我开始寻找Gravatar镜像源代替它。但是治标不治本——更换头像依然是个难题。好吧，那么有什么能够完美解决这个问题的解决方针？Gravatar被WordPress收购了，这引起了我的注意。WordPress是很棒的开源博客站，著名的五分钟建站，而且WordPress有大陆站点，大陆站会不会提供一些好用的东西？很好，我知道了。由大陆站LitePress驱动的自由公共头像站源Cravatar正是我需要的！这是一个完全兼容Gravatar的源，因此如果你曾经使用了Gravatar保存你的头像也无需担心，完全能够兼容！只需要简单的注册一个账号，绑定邮箱，那么任何调用Cravatar（或Gravatar）的站点都能访问你的头像！如果你想在你的站点使用，将Gravatar的站源定向为 https://cravatar.cn/avatar/ 即可！  咩狼的站点的邮箱功能仅用于绑定头像，不会公开或分发SPAM。完全没有使用过Cravatar（或Gravatar）？非常简单，简单到不需要教学！注：Gravatar In CN 只是中文站，你可能依然需要梯子或者别的什么才能上去。CravatarGravatarGravatar In CN"
+  },
+  
+  {
+    "title": "发现一个问题，分析一个问题",
+    "url": "/posts/on_question/",
+    "categories": "咩狼博客, 以狼观世",
+    "tags": "日常, 哲学, 闲聊",
+    "date": "2023-03-31 18:30:00 +0800",
+    
+
+
+
+
+
+    
+    "snippet": "在学校闲来无事开始翻阅一些以前的作品，听到老师正在说如何让作业成为资料库，绘制同类的作品时可以使用自己作业种的配色，这非常的有道理阿！那么我也许也需要一个能够警示自己的解决问题的资料库在我迷茫的时候参考，这也算是一个点滴吧。什么是问题  没错，解决现实问题才是真正的凤梨计划出现的意义。狼的一生也会伴随非常多的现实问题，小到中午吃什么，大到如何空手套白菜，这些点点滴滴都是现实化问题。 问题如果...",
+    "content": "在学校闲来无事开始翻阅一些以前的作品，听到老师正在说如何让作业成为资料库，绘制同类的作品时可以使用自己作业种的配色，这非常的有道理阿！那么我也许也需要一个能够警示自己的解决问题的资料库在我迷茫的时候参考，这也算是一个点滴吧。什么是问题  没错，解决现实问题才是真正的凤梨计划出现的意义。狼的一生也会伴随非常多的现实问题，小到中午吃什么，大到如何空手套白菜，这些点点滴滴都是现实化问题。 问题如果不解决那它也不会自己解决自己。即便他是成熟的问题，他也不会解决自己，就如同我的数位笔非常成熟但它依然不会自己画画一样。 因此，总有狼要站出来解决问题。  ——《凤梨计划》凤梨计划中的问题是“现实问题”，但是问题依然有很多种。什么，难道还有不现实的问题，虚假问题？确实有，但这些虚假的问题可能也是真实的问题，这便是被称为“盲点”的部分。同样的，真实的“现实问题”背后可能也是不成问题的问题，也就是“虚假问题”。 如何判断问题是现实问题还是虚假问题？无论如何，我们已经发现了问题，这就是我们解决问题的第一步，现在让我们分析问题，判断它是现实或是虚假的问题。解决问题一定会有这四部曲：问题的出现如果要说出现，问题可以再继续划分很多小的类。而他们有个共同点，那就是问题一定出现再人思考或思考后才会出现 ———— 没有思考，没有问题，没有结果。 我们走在路上摔了一跤，但我们不打算思考我们为什么摔跤，那摔跤就不是一个问题，我们可能会抱怨石头很蠢，但这不能被成为一个问题，这只是一段心理活动。  遇到错误总是令人沮丧，但是这也是一段过程，所以不用担心！修正它们也是很炫酷的过程！  ——《WithJson(OVO) Readme》多思考吧！解决问题能够让我们经验丰富，在我们遇到相同的问题的时候就不会因为问题感到沮丧。问题的分析分析一个问题是解决问题最重要的一步，如果都无法分析一个问题，那要如何解决一个问题？盲目的解决带来的是无尽的盲点，而盲点很可能让我们陷入现实欺骗的问题地狱。 《麦肯锡问题解决法》这本书我反复读过很多遍，有人说这本书更本不是解决问题。我不知道为什么他们会这么认为，或许是我思考的还不够或是我思考的逻辑没有跟着书走，无论如何，书只是帮助人思考的工具，如果看书就能成大器的话就没必要思考了。不过这样也就不会有人著作了 ———— 没有思考，没有问题，没有结果。问题的逻辑抱着打破沙锅问到底的原则去解决一个问题？好吧，它确实有它的好处，但是我们都不应该为了一个难题而自挂东南枝。我们可以自挂西南枝 尝试换个逻辑再去思考这个问题，不同的方向会有不同的解决方案 ———— 问题是人提出的，那么也可以被人解决。解决不了，往往只是没有一个好的解决方案罢了。 一个问题可以会引出无数小问题，这下又陷入问题深渊了？不，事实上焦点不应该在问题上，也不是在解决问题上，去了解问题是如何发生的，知道问题的过程，才能定制问题的解决方案。 这一过程也被称为 “问题的假设”。请务必留意问题的先决条件，仔细思考你所需要的，别让盲点影响你。问题的解决这一过程也被称为 “假设的实现”。 将多个假设聚合在一起筛选，这样就能得到一个最好的结果。 但是，现在让我们放慢脚步，解决问题应当解决“现实问题”，表面问题都是“虚假问题”，因为问题依然存在。很多人在得到了问题之后就急于得到解决方案，往往无法解决问题。 如果你无法解决问题，那么可以藏尸询问其他人得到回答，但是请注意，你是提问者，而如果回答你的人不是你的熟人，他也没有义务一定要回答你，而你理直气壮的对他提供的回答进行攻击很可能会让其他人都感到恼怒。 没什么比实战更好了，请允许我使用“提问法”来演示一下解决一个问题：  服务器的主机又无法启动了吗？让我们整理一下。 “为什么主机不能启动” 因为灰尘过多，需要清理机箱灰尘。 “为什么机箱灰尘过多？” 机箱盖并不牢固，这会让附近的灰尘不断往里聚集。 “为什么机箱盖会松懈？” 螺丝并不好，它以及足够老以至于它无法让机箱盖牢固的安在上面。使用了三个为什么，得到了问题的根本原因。确实，如果我把灰尘清理了，我的问题就解决了。但是问题依然存在，如果我没有这么多为什么，我不去更换螺丝，很快主机就又会堆满灰尘。 合理的筛选！，在适合的环境使用适合的方法解决问题。"
+  }
+  
+]
+

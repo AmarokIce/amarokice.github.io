@@ -1,0 +1,198 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://wolf.snowlyicewolf.club//</id>
+  <title>狼与凤梨田</title>
+  <subtitle>咩狼与它的凤梨田。</subtitle>
+  <updated>2024-10-29T23:56:17+08:00</updated>
+  <author>
+    <name>AmarokIce</name>
+    <uri>https://wolf.snowlyicewolf.club//</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="https://wolf.snowlyicewolf.club//feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="zh-TW"
+    href="https://wolf.snowlyicewolf.club//"/>
+  <generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator>
+  <rights> © 2024 AmarokIce </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>DLang+VSCode 快速上爪指北</title>
+    <link href="https://wolf.snowlyicewolf.club//posts/dlang_with_vscode/" rel="alternate" type="text/html" title="DLang+VSCode 快速上爪指北" />
+    <published>2024-09-10T18:30:00+08:00</published>
+  
+    <updated>2024-09-10T18:30:00+08:00</updated>
+  
+    <id>https://wolf.snowlyicewolf.club//posts/dlang_with_vscode/</id>
+    <content src="https://wolf.snowlyicewolf.club//posts/dlang_with_vscode/" />
+    <author>
+      <name>icewolf</name>
+    </author>
+
+  
+    
+    <category term="咩狼博客" />
+    
+    <category term="折腾" />
+    
+  
+
+  <summary>D 语言一直是一门不温不火但又相当优雅，集成了 C++， Java，C# 与 Python 的语言特性，获取它们的优点，解决了很多编程时的痛苦之处。
+
+但也正因为它的不温不火，导致它的第三方库大多年久失修，官方文档上也有一些 VSCode 开发方面没有讲清的地方。再折腾了一天之后我决定记录成一篇文章。
+
+首先按照官方文档为 VSCode 安装插件 D Programming Language (code-d) 。
+
+如果你从未安装过 D 语言，那么在安装这个插件之后应该会自动跳转到 DMD 下载界面。如果什么也没有发生，你可以手动过去。点我前往
+
+不知道下载哪个？如果你是一个新手，不愿意折腾 GCC 一类的 C 语言社区环境，那么使用 DMD 是极佳的。
+
+随后，找个好地方。然后打开你的终端（或 cmd），输入 dub init(或者 dub init 你的项目名称, 尽量不要大写/...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>折腾心得-黑苹果装机简要报告</title>
+    <link href="https://wolf.snowlyicewolf.club//posts/apple_make_bedrock/" rel="alternate" type="text/html" title="折腾心得-黑苹果装机简要报告" />
+    <published>2024-06-22T18:30:00+08:00</published>
+  
+    <updated>2024-06-22T18:30:00+08:00</updated>
+  
+    <id>https://wolf.snowlyicewolf.club//posts/apple_make_bedrock/</id>
+    <content src="https://wolf.snowlyicewolf.club//posts/apple_make_bedrock/" />
+    <author>
+      <name>bedrock</name>
+    </author>
+
+  
+    
+    <category term="基岩博客" />
+    
+    <category term="技术" />
+    
+  
+
+  <summary>[折腾心得] 2024年黑苹果装机简要报告
+By BEclR0Ck
+
+前言
+最近看到了针对 6700XT 等 Navi22 核心系列显卡的驱动支持，算是给黑果加上了根续命稻草。又回想起当时买这张卡的初衷，就决定把黑苹果捡回来了。简要分享下流程吧。
+
+配置检查
+遗憾的是，近两年电脑的主流配置大部分都无法驱动，而原因出现在显卡上。intel 芯片从 11 代开始就都无法驱动核显，而独显方面，N 卡比较特殊，自从 Apple 和 Nvidia 摩擦后，能免驱的就只有比较老的开普勒架构的 N 卡了，而且只能免驱到 MacOS 11，即使是打补丁，高于 GTX1080 的 N 卡也无法驱动，而在 MacOS 12-14 下驱动 N 卡，则需要安装 Opencore legacy patcher 但也无法加速，所以有条件建议更换 A 卡。 虽然 N 卡在黑苹果下生存比较艰难，但驱动起来相对还是比...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>什么是动物保护？</title>
+    <link href="https://wolf.snowlyicewolf.club//posts/what_pa/" rel="alternate" type="text/html" title="什么是动物保护？" />
+    <published>2024-05-01T21:53:18+08:00</published>
+  
+    <updated>2024-05-01T21:53:18+08:00</updated>
+  
+    <id>https://wolf.snowlyicewolf.club//posts/what_pa/</id>
+    <content src="https://wolf.snowlyicewolf.club//posts/what_pa/" />
+    <author>
+      <name>icewolf</name>
+    </author>
+
+  
+    
+    <category term="咩狼博客" />
+    
+    <category term="以狼观世" />
+    
+  
+
+  <summary>很多时候我都能在各种地方发现各种对于“动物保护”有着各种理解，因此我认为我有必要澄清我对动物保护的理解与概念。
+这篇文章的内容与主旨可能是受争议的，请在完全理解文章内容前不要发表任何具有争议性的短评。
+
+所谓动物保护，事实上也是一种对自然的保护，人类对于自然的付出进行的回馈，动物保护的核心主旨是被动且根源性的。而不是某些极端之人所认为的：动物保护就是素食主义。
+这是完全错误的认知，照这么说，植物的命也是命，什么都不要吃了最好，自己死了还能成为自然的养料。
+弱肉强食是自然法则中食物链的铁律，弱小的动物被强大的动物圈养与捕猎是自然运转的正常工作流。通常会有人曲解这一工作流，指责动物保护者“只保护猫狗等家宠，不关系鸡鸭等家禽”。
+“圈养”与“增殖保护”这一长期生存的狩猎策略并不是人类的专利，大多肉食动物都有相同的意识，同样的意识对于草食动物迁移换草中也得以体现。人是杂食动物，人可以肉食偏好...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Kotlin中Lambda表达式与object表达式</title>
+    <link href="https://wolf.snowlyicewolf.club//posts/kotlin_lambda/" rel="alternate" type="text/html" title="Kotlin中Lambda表达式与object表达式" />
+    <published>2024-03-31T11:17:14+08:00</published>
+  
+    <updated>2024-03-31T11:17:14+08:00</updated>
+  
+    <id>https://wolf.snowlyicewolf.club//posts/kotlin_lambda/</id>
+    <content src="https://wolf.snowlyicewolf.club//posts/kotlin_lambda/" />
+    <author>
+      <name>icewolf</name>
+    </author>
+
+  
+    
+    <category term="咩狼博客" />
+    
+    <category term="折腾" />
+    
+    <category term="Kotlin" />
+    
+  
+
+  <summary>出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。
+在网上查找了很久，除了复制黏贴的文章之外什么也没找到，最后还是脑子里的凤梨全回到该到的地方才想起来怎么用。
+在Kotlin中灵活使用 Lambda 表达式也是非常重要的，而Kotlin有多重集成API。
+如果你不是一个 Java 的老开发者，也不太了解 Java8 发生啥事，那么你可能不知道 Lambda 是什么，或者说你经常使用，但你不知道它其实就叫 Lambda 。无论如何，这一篇解析将会透彻讲解 Kotlin 的Lambda 。如果你觉得我写的还不错，那就让我来 λλ 你的凤梨 记得分享我的文章。
+
+Lambda 本质是一种匿名的代码块传递。首先我们来看一组例子：
+open class FunnyClass
+
+class NotFunnyC...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal - The requested URL returned error - 403</title>
+    <link href="https://wolf.snowlyicewolf.club//posts/git_remote_error/" rel="alternate" type="text/html" title="Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal - The requested URL returned error - 403" />
+    <published>2024-03-25T09:33:00+08:00</published>
+  
+    <updated>2024-03-25T09:33:00+08:00</updated>
+  
+    <id>https://wolf.snowlyicewolf.club//posts/git_remote_error/</id>
+    <content src="https://wolf.snowlyicewolf.club//posts/git_remote_error/" />
+    <author>
+      <name>icewolf</name>
+    </author>
+
+  
+    
+    <category term="咩狼博客" />
+    
+    <category term="折腾" />
+    
+  
+
+  <summary>在我将我的代码转入团队后，即便我为我的账号分配了 Admin ，我依然无法提交代码。但是奇怪的是，如果我使用令牌验证，就可以。
+错报如下：
+remote: Permission to xxxxx.git denied to xxx.
+
+fatal: unable to access &amp;#39;https://github.com/xxx.git/&amp;#39;: The requested URL returned error: 403
+
+
+好嘛，难道要把团队的仓库挪回个人？Bing了很久才偶遇一个解决方案，特此记录一下。
+
+首先进入项目根目录，打开隐藏文件夹 .git ，找到无后缀名文档 config ，打开。
+在 [remote &amp;quot;origin&amp;quot;] （取决于你的本地分支名称） 下，找到 url 。
+
+里面原本的内容应该是 https://github.com/所有者名称/项目名称.git , 改成下...</summary>
+
+  </entry>
+
+</feed>
+
+
