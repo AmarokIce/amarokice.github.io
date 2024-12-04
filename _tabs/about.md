@@ -91,3 +91,20 @@ order: 4
 - 德力西爪持红外测距仪
 - 德力西金属探测仪
 - 某不知名品牌单肩挎包
+
+
+## 与我通讯
+通讯簿：<br />
+骚扰请使用电子邮件，每一封我都会认真看的。QQ 不接受骚扰，标明来意与问题，否则一律拒。<br />
+月木锯木厂真的有一座锯木厂，不过现在老锯木厂早已在地下的避难窟伴随着大蒜作物沉睡。这是狼人与吸血鬼的战争之终。
+- Email: AmarokIce@outlook.com
+- Email: AmarokIce@zohomail.cn
+- QQ: 58267310
+
+社交通讯簿：
+- [Github](https://github.com/AmarokIce)
+- [Bluesky](https://bsky.app/profile/amarokice.bsky.social)
+- [MC Mod](https://center.mcmod.cn/208628/)
+
+
+
