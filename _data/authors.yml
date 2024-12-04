@@ -1,0 +1,15 @@
+## Template › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/advanced-usage.md#setting-author-url
+# -------------------------------------
+# {author_id}:
+#   name: {full name}
+#   twitter: {twitter_of_author}
+#   url: {homepage_of_author}
+# -------------------------------------
+
+icewolf:
+  name: 初雪·冰
+  url: https://github.com/AmarokIce/
+
+bedrock:
+  name: BEclR0Ck
+  url: https://github.com/BEclR0Ck/
