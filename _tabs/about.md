@@ -65,6 +65,7 @@ order: 4
 
 **携带设备**
 > 这是我出门接见客户时会带的设备，同时也是作为微软粉的终极军火清单。一整套配置全是微软的。平时没事还是喜欢用 Surface 练习画狼头盖骨。
+
 - Microsoft Surface Pro 8 & Microsoft Windows 11
   - Microsoft Surface BlueShadow Sculpt Mouse BlueTeeth Edition
   - Microsoft Surface Pro Signature Keyboard
@@ -74,6 +75,7 @@ order: 4
 > 如果有人不相信我买 SteamDeck 其实是为了写码的话我也不会很意外的。但在我为我的设备配置 Fedora 之前是真的在用 SteamDeck 写码。有时候会用它帮我解决渲染作业。你知道的，笔记本的小显卡带 3D Max 渲染出来的效果简直是把企业级产品渲染变成起夜急产品渲染。但 SteamDeck 的定制芯片却能兼容便携与高渲染力。
 >
 > 恩，听说模拟狼生画质开最高很伤显卡，希望 SteamDeck 能多让我玩几小时模拟狼生。
+
 - SteamDeck & SteamOS
   - JBL T520TB Headphone
   - Snail Technology BlueTeeth Keyboard
@@ -83,6 +85,7 @@ order: 4
 > 作为室内设计师，即便现在已经在往程序员的方向进展了，但是量房装备永远贴身携带。一日设计师，终生设计师。
 >
 > 我很想再买一套七匹狼的双肩包，但我还是更喜欢单肩包。有时候邻居以为我的职业是邮差或者快递员。
+
 - 凤梨
 - 得力 10M 钢制卷尺
 - 德力西爪持红外测距仪
