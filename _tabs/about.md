@@ -2,10 +2,9 @@
 icon: fas fa-info-circle
 order: 4
 ---
-
+<font size=5>初雪·冰 个狼档案</font>
 <img align="right" width="260" src="https://avatars.githubusercontent.com/u/91077200?v=4"/>
-
-# 初雪·冰 个狼档案
+---
 **名称/本名**：初雪·冰 / Amaruq·Illaujaq (Amarok·Ice)<br />
 **种族**：北极狼<br />
 **编程语言**：Java，Kotlin，D，(较少) Ruby<br />
