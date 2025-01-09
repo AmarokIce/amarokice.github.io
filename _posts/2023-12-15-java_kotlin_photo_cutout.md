@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: Java/Kotlin图像裁切
 date: 2023/12/15 16:38:49
 author: icewolf

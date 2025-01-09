@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: DLang多线程之spawn
 date: 2024/11/04 23:21:00
 author: icewolf

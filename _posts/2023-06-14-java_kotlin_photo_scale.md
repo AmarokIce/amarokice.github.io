@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: Java/Kotlin对Png文件大小进行硬边缩放（点阵无损缩放）
 date: 2023/06/14 21:41:00
 author: icewolf

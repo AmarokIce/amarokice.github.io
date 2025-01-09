@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: 使用文件引索作为共享网盘与Maven仓库！
 date: 2023/09/27 17:21:00
 author: icewolf

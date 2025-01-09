@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: 折腾心得-黑苹果装机简要报告
 author: bedrock
 date: 2024-06-22 18:30:00 +0800

@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: 发现一个问题，分析一个问题
 description: 将多个假设聚合在一起筛选，这样就能得到一个最好的结果。
 author: icewolf

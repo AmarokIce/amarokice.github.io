@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: 计算字符串运算！
 date: 2024/02/16 21:01:00
 author: icewolf

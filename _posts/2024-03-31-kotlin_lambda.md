@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: Kotlin中Lambda表达式与object表达式
 date: 2024/03/31 11:17:14
 author: icewolf

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg" />
+  <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="狼与凤梨田" />
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest" />
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>为何选择 DLang</title>
+  <meta name="description" content="碎碎念当被问起为何选择 DLang,亦或是其他人想知道 DLang 为什么做的比 C++ 更好(虽然它还不够完完全全的取代 C++,它不是一个 C++ 的分支, Coal 才是),是时候总结一篇文章了。">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/timeline.css">
+  <link rel="canonical" href="http://localhost:4000/%E5%92%A9%E7%8B%BC%E5%8D%9A%E5%AE%A2/%E6%8A%98%E8%85%BE/2024/11/12/%E4%B8%BA%E4%BD%95%E9%80%89%E6%8B%A9D.html">
+  <link rel="alternate" type="application/rss+xml" title="狼与凤梨田" href="http://localhost:4000/feed.xml" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+   TeX: { extensions: ["color.js"] }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+
+</head>
+
+
+  <body>
+
+    <div class="site-header">
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <i class="fa fa-navicon fa-lg"></i>
+      </a>
+
+      <div class="trigger">
+          <a class="page-link" href="/">Home</a>
+        
+          
+            
+            <a class="page-link" href="/about/">关于咩狼</a>
+            
+          
+        
+          
+        
+          
+        
+          
+            
+            <a class="page-link" href="/link/">友情连接</a>
+            
+          
+        
+          
+        
+      </div>
+    </nav>
+
+
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+     <h1 class="post-title">为何选择 DLang</h1>
+     <p class="post-meta">Posted on Nov 12, 2024 • icewolf</p>
+  </header>
+
+  <article class="post-content">
+    <h2 id="碎碎念">碎碎念</h2>
+<p>当被问起为何选择 DLang,亦或是其他人想知道 DLang 为什么做的比 C++ 更好(虽然它还不够完完全全的取代 C++,它不是一个 C++ 的分支, Coal 才是),是时候总结一篇文章了。</p>
+
+<h2 id="入门">入门</h2>
+<h3 id="哲学与能力">哲学与能力</h3>
+<p>DLang 的设计哲学便是保持开发。DLang 注重最小最轻的标准库,保证里面只有一切你会用到的东西,而不会有其他无关的东西。DLang 保持关心最核心的问题。</p>
+
+<p>DLang 拥有自己的垃圾标记与垃圾回收器（GC）。通过 <code class="language-plaintext highlighter-rouge">@nogc</code> 注解来禁用 GC 的工作,之后需要手动回收。</p>
+
+<p>DLang 允许安全编程，远离肮脏的不安全指针。</p>
+
+<p>DLang 拥有强大的与 C/C++ 的兼任能力,同时拥有自己的开放源代码标准库 STD,初学阶段我们会在顶部导入包 <code class="language-plaintext highlighter-rouge">std.stdio</code>。这个包已经导入了你在 C 中会涉及到的库 <code class="language-plaintext highlighter-rouge">stdio.h</code>。</p>
+
+<h3 id="快速上爪">快速上爪</h3>
+<p>DLang 拥有相当平滑的入门曲线,因为它适应多种语言开发者。只可惜暂时没有较为知名的 DLang 华语论坛。</p>
+
+<p>我们先看一段例子:</p>
+
+<div class="language-d highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 让我们看起来像是从 C 语言迁移过来的!</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="s">"Hello world!"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 让我们以 D 语言的风格编写程序!</span>
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">writef</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="s">"Hello world!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="c1">// 让我们看起来是从 Java 迁移过来的!</span>
+<span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="nb">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">writeln</span><span class="p">(</span><span class="s">"Hello world!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>DLang 的编译器分为三种,官方标配的 DMD, 基于 GCC 的编译器 GDC,亦或是基于 LLVM 的编译器 LDC。</p>
+
+<p>在 Windows 端,我们通常推荐使用 DMD 或 LDC,而 Unix 终端可自便。</p>
+
+<h3 id="其他特性">其他特性</h3>
+<p>依照官网描述,DLang 依然有很多强大且会用到的特性。在此我会更直观的描述 DLang 的强大之处：</p>
+
+<ul>
+  <li>高等级的抽象建模（泛型,模板与委托）；</li>
+  <li>高性能的快速编译语言；</li>
+  <li>静态编程语言；</li>
+  <li>系统级 API 与嵌入式编程；</li>
+  <li>安全子集（Safe D）；</li>
+  <li>易理解,可维护的代码；</li>
+  <li>兼容 C 语言的二进制接口（相关文档见官网）；</li>
+  <li>有限兼容 C++ 的二进制接口（相关改动见 D 1.0 迁移至 2.0）；</li>
+  <li>多范式编程（甚至汇编！）,且拥有平滑学习曲线；</li>
+  <li>契约除错与内置的单元测试。</li>
+</ul>
+
+<h3 id="更多你会感兴趣的">更多你会感兴趣的</h3>
+<p>我之前提到过 DLang 是我在完成 PineappleScript 这个大饼之前用作系统维护的语言。是的,DLang 甚至适合作为脚本程序！让我们看一看运行指令：</p>
+
+<blockquote>
+  <p>编译：<code class="language-plaintext highlighter-rouge">dmd [filename]</code></p>
+
+  <p>执行（不输出编译产物）：<code class="language-plaintext highlighter-rouge">rdmd [filename]</code></p>
+</blockquote>
+
+<p>DLang 的包管理器是 DUB。使用 DUB 执行一定会产生编译产物。</p>
+
+<blockquote>
+  <p>DUB 构建编译：<code class="language-plaintext highlighter-rouge">dub build</code></p>
+
+  <p>DUB 构建执行：<code class="language-plaintext highlighter-rouge">dub run</code></p>
+</blockquote>
+
+<blockquote>
+  <p>对于 Unix,在首行放置 Shebang（ #!/bin/sh 等)可以直接作为脚本执行程序。</p>
+</blockquote>
+
+<h2 id="强大的导入模块">强大的导入模块</h2>
+<h3 id="随意导入">随意导入</h3>
+<p>你的下一个 import, 何必要写在头部？ DLang 允许你在 <strong>任何地方</strong> import 一个新的模块，甚至只抽取部分函数进行导入。</p>
+
+<div class="language-d highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">import</span> <span class="n">std</span><span class="p">.</span><span class="n">stdio</span> <span class="p">:</span> <span class="n">writeln</span><span class="p">;</span> <span class="c1">// 在函数内导入的模块的作用域仅限于当前函数。此处单独导入了 writeln 函数作用给 main 函数！</span>
+    <span class="n">writeln</span><span class="p">(</span><span class="s">"Hello world!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="公开匹配">公开匹配</h3>
+<p>在 DLang 中，对 import 进行公开（<code class="language-plaintext highlighter-rouge">public import ...</code>) 会让导入当前模块的地方同时能够自动导入被公开的部分。因此 public 时一定要注意当前模块与导入模块的关系是否合适。</p>
+
+<p>但是我们依然有一种常见场景——目录导入。</p>
+
+<p>DLang 中约定，直接导入模块目录可以导入全部内容。而 <code class="language-plaintext highlighter-rouge">package.d</code> 可以管理模块是否需要公开（这是可选的，我们通常是这样约定的）。</p>
+
+<div class="language-d highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// package.d</span>
+<span class="k">module</span> <span class="n">app</span><span class="p">.</span><span class="n">apps</span>
+
+<span class="k">public</span><span class="p">:</span>
+<span class="k">import</span> <span class="n">app</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">app1</span><span class="p">;</span>
+<span class="k">import</span> <span class="n">app</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">app2</span><span class="p">;</span>
+<span class="k">import</span> <span class="n">app</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">app3</span><span class="p">;</span>
+
+</code></pre></div></div>
+
+<p>在直接导入 <code class="language-plaintext highlighter-rouge">app.apps</code> 时，将会自动导入其余三个文件。当如，<code class="language-plaintext highlighter-rouge">package.d</code> 中也是可以写代码的。当你不关心模块时可以这么做。</p>
+
+<h2 id="安全编程">安全编程</h2>
+<p>远古代码总是像是粪坑，人们都知道最下面有金子，但是人们望而却步。因为粪坑的顶部是不安全的分配和对指针的运算，甚至是越界访问。DLang 决定开创一个西方极乐世界，若是开发者的心中有一片净土，那么未来一定能前往极乐世界的。</p>
+
+<p>DLang 中的代码安全等级分为 <code class="language-plaintext highlighter-rouge">system</code>, <code class="language-plaintext highlighter-rouge">trusted</code> 与 <code class="language-plaintext highlighter-rouge">safe</code>。任何代码默认都为系统级（<code class="language-plaintext highlighter-rouge">system</code>)。</p>
+
+<p>来看一段代码：</p>
+
+<div class="language-d highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="nd">@safe</span> <span class="p">{</span>
+    <span class="kt">int</span><span class="p">*</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+    <span class="kt">int</span><span class="p">*</span> <span class="n">b</span> <span class="p">=</span> <span class="n">a</span> <span class="p">+</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// Error</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>main 函数被标记了 <code class="language-plaintext highlighter-rouge">@safe</code>，那么它就是安全的。来看第一段：</p>
+
+<p><code class="language-plaintext highlighter-rouge">int* a = new int;</code> 这一段中我们为 a 分配了一块内存，分配者是 GC。分配后会返回内存托管的指针。当指针不再使用，GC 会立刻出动。再来看第二段：</p>
+
+<p><code class="language-plaintext highlighter-rouge">int* b = a + 5; // Error</code> 我在注释中写了 Error,因为这一段是不成立的。看起来没什么问题？不，安全编程中不可以做这种不干不净的事情。如果你想要内存，那么你得自己去拿，规矩你是知道的。</p>
+
+<p>安全的函数只能调用另一个安全的函数，除非那个函数是 <code class="language-plaintext highlighter-rouge">@trusted</code> 的。当有这个标记，那么编译器会默认这段函数的安全性由开发者管理，也就是所谓的 Unsafe 编程。</p>
+
+<h2 id="拓展阅读">拓展阅读</h2>
+<p>觉得 DLang 如何？想要深入了解吗？这里有一些好的选择：</p>
+<ul>
+  <li><a href="https://dlang.org/">访问 DLang 官方网站</a></li>
+  <li><a href="https://tour.dlang.org/">访问 DLang 官方教学</a> (<a href="https://tour.dlang.org/tour/zh/welcome/welcome-to-d">中文站</a>)</li>
+  <li><a href="https://github.com/dlang-community/awesome-d">阅读 Awesome D</a></li>
+  <li><a href="http://ddili.org/ders/d.en/index.html">阅读 Programming in D</a></li>
+  <li><a href="https://github.com/stars/AmarokIce/lists/here-we-are-dlang">跟踪我的收藏栏 Here we are, DLang!</a></li>
+  <li><a href="https://wolf.snowlyicewolf.club/posts/dlang_with_vscode/">从 VSCode 开始编写你得第一个 DLang 程序</a></li>
+  <li><a href="https://wolf.snowlyicewolf.club/">保持关注我的博客！</a></li>
+</ul>
+
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
+  </div>
+
+
+  <!-- disqus comments -->
+ 
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">狼与凤梨田</h2> -->
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>狼与凤梨田</li>
+        <!-- <li><a href="mailto:amarokice@outlook.com">amarokice@outlook.com</a></li> -->
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/AmarokIce">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">AmarokIce</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">Hope you're happy!</p>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+</html>

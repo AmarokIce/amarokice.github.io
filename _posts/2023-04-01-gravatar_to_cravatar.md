@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: Gravatar无法访问的完美解决方针：Cravatar
 date: 2023/04/01 11:25:00
 author: icewolf

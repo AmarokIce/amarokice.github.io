@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg" />
+  <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="狼与凤梨田" />
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest" />
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>DLang+VSCode 快速上爪指北</title>
+  <meta name="description" content="D 语言一直是一门不温不火但又相当优雅，集成了 C++， Java，C# 与 Python 的语言特性，获取它们的优点，解决了很多编程时的痛苦之处。">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/timeline.css">
+  <link rel="canonical" href="http://localhost:4000/%E5%92%A9%E7%8B%BC%E5%8D%9A%E5%AE%A2/%E6%8A%98%E8%85%BE/2024/09/10/dlang_with_vscode.html">
+  <link rel="alternate" type="application/rss+xml" title="狼与凤梨田" href="http://localhost:4000/feed.xml" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+   TeX: { extensions: ["color.js"] }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+
+</head>
+
+
+  <body>
+
+    <div class="site-header">
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <i class="fa fa-navicon fa-lg"></i>
+      </a>
+
+      <div class="trigger">
+          <a class="page-link" href="/">Home</a>
+        
+          
+            
+            <a class="page-link" href="/about/">关于咩狼</a>
+            
+          
+        
+          
+        
+          
+        
+          
+            
+            <a class="page-link" href="/link/">友情连接</a>
+            
+          
+        
+          
+        
+      </div>
+    </nav>
+
+
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+     <h1 class="post-title">DLang+VSCode 快速上爪指北</h1>
+     <p class="post-meta">Posted on Sep 10, 2024 • icewolf</p>
+  </header>
+
+  <article class="post-content">
+    <p>D 语言一直是一门不温不火但又相当优雅，集成了 C++， Java，C# 与 Python 的语言特性，获取它们的优点，解决了很多编程时的痛苦之处。</p>
+
+<p>但也正因为它的不温不火，导致它的第三方库大多年久失修，官方文档上也有一些 VSCode 开发方面没有讲清的地方。再折腾了一天之后我决定记录成一篇文章。</p>
+
+<p>首先按照官方文档为 VSCode 安装插件 <code class="language-plaintext highlighter-rouge">D Programming Language (code-d)</code> 。</p>
+
+<p>如果你从未安装过 D 语言，那么在安装这个插件之后应该会自动跳转到 DMD 下载界面。如果什么也没有发生，你可以手动过去。<a href="https://dlang.org/download.html">点我前往</a></p>
+
+<p>不知道下载哪个？如果你是一个新手，不愿意折腾 GCC 一类的 C 语言社区环境，那么使用 DMD 是极佳的。</p>
+
+<p>随后，找个好地方。然后打开你的终端（或 cmd），输入 <code class="language-plaintext highlighter-rouge">dub init</code>(或者 <code class="language-plaintext highlighter-rouge">dub init 你的项目名称</code>, 尽量不要大写/中文字符) 进行项目初始化。你可以全部回车，直到向导结束。现在，使用 VSCode 打开项目。</p>
+
+<p>为你的 VSCode 配置 code-d 与 server-d。当然，如果你不在乎它们的位置，那就让 VSCode 的插件自己下载就好，你需要做的就是去泡一杯咖啡然后等它自己编译。</p>
+
+<p>一切都很好。现在，我们进入 Debugging 选项卡（如果你不知道是什么，Ctrl Shift D 进入），选择创建 launch.json，选择创建 DuB Debugging。</p>
+
+<p>现在，你的 <code class="language-plaintext highlighter-rouge">./.vscode/launch.json</code> 的内容看起来应该是这样：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"configurations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code-d"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"launch"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dubBuild"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Build &amp; Debug DUB project"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${command:dubWorkingDirectory}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"program"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${command:dubTarget}"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>如果你找不到，可能是因为你已经打开了 .d 文件。保持选项卡中没有文件被打开，然后再试一次。</p>
+
+<p>接下来我们配置 <code class="language-plaintext highlighter-rouge">tasks.json</code>。可以手动创建或使用 VSCode 的指令创建。然后复制下面的内容黏贴过去：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dub build"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dub"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"run"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"compiler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$current"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"archType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$current"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"buildType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$current"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$current"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"problemMatcher"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+				</span><span class="s2">"$dmd"</span><span class="w">
+			</span><span class="p">],</span><span class="w">
+			</span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"build"</span><span class="p">,</span><span class="w">
+			</span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dub build --compiler=C:</span><span class="se">\\</span><span class="s2">D</span><span class="se">\\</span><span class="s2">dmd2</span><span class="se">\\</span><span class="s2">windows</span><span class="se">\\</span><span class="s2">bin</span><span class="se">\\</span><span class="s2">dmd.exe -a=x86_64 -b=debug -c=application"</span><span class="w">
+		</span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>注意: <code class="language-plaintext highlighter-rouge">detail</code> 处的 dmd.exe 路径改为你的 dmd 安装路径。</p>
+
+<p>接着回到 <code class="language-plaintext highlighter-rouge">launch.sjon</code>, 为刚配置的 <code class="language-plaintext highlighter-rouge">configurations</code> 增加一条：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"configurations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code-d"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"launch"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dubBuild"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Build &amp; Debug DUB project"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"preLaunchTask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dub build"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${command:dubWorkingDirectory}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"program"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${command:dubTarget}"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>大功告成！现在我们在 <code class="language-plaintext highlighter-rouge">./source/app.d</code> 中写点什么：</p>
+
+<div class="language-d highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="n">std</span><span class="p">.</span><span class="n">stdio</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">writeln</span><span class="p">(</span><span class="s">"Hello D World!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>现在，你可以使用 VSCode 的运行与调试来执行你的代码了！大功告成！</p>
+
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
+  </div>
+
+
+  <!-- disqus comments -->
+ 
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">狼与凤梨田</h2> -->
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>狼与凤梨田</li>
+        <!-- <li><a href="mailto:amarokice@outlook.com">amarokice@outlook.com</a></li> -->
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/AmarokIce">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">AmarokIce</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">Hope you're happy!</p>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+</html>

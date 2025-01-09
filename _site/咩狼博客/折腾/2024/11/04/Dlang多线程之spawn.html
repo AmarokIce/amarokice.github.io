@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg" />
+  <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="狼与凤梨田" />
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest" />
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>DLang多线程之spawn</title>
+  <meta name="description" content="碎碎念最近正在研究使用 DLang 编写一些实用小工具，在 PineappleScript 成型之前都得靠 DLang 作为日用维护系统的脚本了。">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/timeline.css">
+  <link rel="canonical" href="http://localhost:4000/%E5%92%A9%E7%8B%BC%E5%8D%9A%E5%AE%A2/%E6%8A%98%E8%85%BE/2024/11/04/Dlang%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8Bspawn.html">
+  <link rel="alternate" type="application/rss+xml" title="狼与凤梨田" href="http://localhost:4000/feed.xml" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+   TeX: { extensions: ["color.js"] }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+
+</head>
+
+
+  <body>
+
+    <div class="site-header">
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <i class="fa fa-navicon fa-lg"></i>
+      </a>
+
+      <div class="trigger">
+          <a class="page-link" href="/">Home</a>
+        
+          
+            
+            <a class="page-link" href="/about/">关于咩狼</a>
+            
+          
+        
+          
+        
+          
+        
+          
+            
+            <a class="page-link" href="/link/">友情连接</a>
+            
+          
+        
+          
+        
+      </div>
+    </nav>
+
+
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+     <h1 class="post-title">DLang多线程之spawn</h1>
+     <p class="post-meta">Posted on Nov 4, 2024 • icewolf</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="碎碎念">碎碎念</h1>
+<p>最近正在研究使用 DLang 编写一些实用小工具，在 PineappleScript 成型之前都得靠 DLang 作为日用维护系统的脚本了。</p>
+
+<p>但很显然，我很快就遇到了并发需求项目，经过一番折腾并表达了对 Jvm 语言的思乡之情之后最终解决了这个问题，就记录一下喽。</p>
+
+<h1 id="关于-dlang-并发">关于 DLang 并发</h1>
+<p>DLang 有对多线程与协程的支持，DLang 的协程其实相当好理解，但多线程就有意思了。在 DLang 中，静态是强调绝对本地化的，也就是静态函数中使用的内容必须是编译时可见（参数除外）。而多线程的时候通常也是强调这一点，因此推荐使用静态函数作为并发函数，本文也会使用静态函数作为示例。</p>
+
+<p>DLang 中的并发分为并行迭代（<code class="language-plaintext highlighter-rouge">parallelism</code>，<code class="language-plaintext highlighter-rouge">parallel</code>，<code class="language-plaintext highlighter-rouge">map&amp;amap</code>），委托（<code class="language-plaintext highlighter-rouge">task</code>）以及信道通讯（<code class="language-plaintext highlighter-rouge">spawn</code>）。这些并发方法均具有委托性质。本文主要针对通常会被使用的信道通讯（Message Passing Concurrency）进行演示。</p>
+
+<h1 id="概念">概念</h1>
+<p>不要着急看代码，至少先有个概念。最最少你也得知道，<strong>编写并发需要导入包 std.concurrency 。</strong></p>
+
+<p>信道通讯将会分为一个总线（主线程）和若干子线（并发线程）。通过函数 <code class="language-plaintext highlighter-rouge">spawn</code> 进行委托。委托后返回线程标识符 <code class="language-plaintext highlighter-rouge">Tid</code>。</p>
+
+<p><code class="language-plaintext highlighter-rouge">Tid</code> 的拓展函数 <code class="language-plaintext highlighter-rouge">send</code> 可以传送任意数据到目标线程。线程中可以通过 <code class="language-plaintext highlighter-rouge">thisTid</code> 获取当前的线程标识符，在子线程中也可以使用 <code class="language-plaintext highlighter-rouge">ownerTid</code> 获取主线程的标识符，用于传递消息。</p>
+
+<p>首先先看一个简单的并发例子：</p>
+
+<div class="language-d highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="n">std</span><span class="p">.</span><span class="n">stdio</span><span class="p">;</span>
+<span class="k">import</span> <span class="n">std</span><span class="p">.</span><span class="n">concurrency</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">threadFunction</span><span class="p">(</span><span class="nb">string</span> <span class="n">varString</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">writeln</span><span class="p">(</span><span class="n">varString</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">spawn</span><span class="p">(&amp;</span><span class="n">threadFunction</span><span class="p">,</span> <span class="s">"Hello world from sub-thread!"</span><span class="p">);</span>
+    <span class="n">writeln</span><span class="p">(</span><span class="s">"Hello world from main thread"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>随后将会看到我们期望的两段话。理所当然，不是咩？</p>
+
+<p>很好，那么让我们再看看讯息传递的例子：</p>
+
+<div class="language-d highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="n">std</span><span class="p">.</span><span class="n">stdio</span><span class="p">;</span>
+<span class="k">import</span> <span class="n">std</span><span class="p">.</span><span class="n">concurrency</span><span class="p">;</span>
+<span class="k">import</span> <span class="n">std</span><span class="p">.</span><span class="n">Thread</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">threadFunction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">receive</span><span class="p">(</span>
+            <span class="p">(</span><span class="nb">string</span> <span class="n">message</span><span class="p">)</span> <span class="p">{</span> <span class="n">writeln</span><span class="p">(</span><span class="n">message</span><span class="p">);</span> <span class="p">}</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Tid</span> <span class="n">tid</span> <span class="p">=</span> <span class="n">spawn</span><span class="p">(&amp;</span><span class="n">threadFunction</span><span class="p">);</span>
+    <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="n">tid</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="s">"Hello world!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>由于 <code class="language-plaintext highlighter-rouge">while</code> 的条件是 <code class="language-plaintext highlighter-rouge">true</code>，这一段程序不会自己退出。不过别着急强制杀死，<code class="language-plaintext highlighter-rouge">Thread.sleep</code> 这个喜闻乐见的用于延长业务运行周期迫使用户交钱来获取最快速度的顶级函数的效果之后就可以看到我们的 “Hello world!” 了。</p>
+
+<p>但需要注意，<strong>并发时不可以传入指针</strong>，指正指向的地址是本地的变量，而跨线程访问会有安全隐患，因此 DLang 会直接拒绝编译传入<strong>非原子</strong>指针。此处必须存在原子操作才可安全传入指针。</p>
+
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
+  </div>
+
+
+  <!-- disqus comments -->
+ 
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">狼与凤梨田</h2> -->
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>狼与凤梨田</li>
+        <!-- <li><a href="mailto:amarokice@outlook.com">amarokice@outlook.com</a></li> -->
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/AmarokIce">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">AmarokIce</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">Hope you're happy!</p>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+</html>

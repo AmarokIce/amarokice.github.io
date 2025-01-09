@@ -1,4 +1,6 @@
 ---
+layout: post
+type: blog
 title: 悲报
 date: 2024/03/14 22:40:40
 author: icewolf
