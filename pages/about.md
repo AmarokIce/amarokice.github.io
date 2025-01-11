@@ -23,16 +23,18 @@ permalink: /about/
 ## 特性标签
 如果你想快速了解我，那么很适合看看这些与闪记卡一样的小标签，而不需要整段阅读我的自我介绍。闪记卡永远是最好的。
 - 北极狼
-- 社区的 IO 存储专家
-- Jvm 仙狼
-- 喜欢凤梨
 - 设计师
+- 喜欢凤梨
+- 喜欢追着自己尾巴
+- Jvm 仙狼
+- 社区的数据存储专家
+- 开源社区成员
 - 很少玩游戏
 - 几乎不扩列
-- 喜欢追着自己尾巴跑
+- 反对内卷
+- 有限制的反对 AI
 - 微软热衷玩家
-- 为自己是开源社区的一份子而自豪
-- 反内卷，反 AI，提倡健康。
+- 提倡健康
 
 ## 自我介绍
 
@@ -60,6 +62,7 @@ permalink: /about/
 
 - Acer S50-51 Notebook & Microsoft Window 11 Pro
   - Microsoft Surface BlueShadow Sculpt Mouse BlueTeeth Edition
+  - Microsoft BlueTeeth Mouse (Common)
   - 朗宁 UHD Displayer 15.6' Touch Edition
   - JIAS Optronices Carry Displayer 13'
   - Vaseky SSD 120GB
@@ -77,6 +80,7 @@ permalink: /about/
   - Microsoft Surface Pro Signature Keyboard
   - Microsoft Surface Slim Pen 2
   - Microsoft Surface Earbuds
+  - Microsoft BlueTeeth Mouse (Common)
 
 > 如果有人不相信我买 SteamDeck 其实是为了写码的话我也不会很意外的。但在我为我的设备配置 Fedora 之前是真的在用 SteamDeck 写码。有时候会用它帮我解决渲染作业。你知道的，笔记本的小显卡带 3D Max 渲染出来的效果简直是把企业级产品渲染变成起夜急产品渲染。但 SteamDeck 的定制芯片却能兼容便携与高渲染力。
 >
@@ -90,12 +94,13 @@ permalink: /about/
 **随身装备**
 > 作为室内设计师，即便现在已经在往程序员的方向进展了，但是量房装备永远贴身携带。一日设计师，终生设计师。
 >
-> 我很想再买一套七匹狼的双肩包，但我还是更喜欢单肩包。有时候邻居以为我的职业是邮差或者快递员。
+> 我还是更喜欢单肩包。有时候邻居以为我的职业是邮差或者快递员。
 
 - 凤梨
 - 得力 10M 钢制卷尺
 - 德力西爪持红外测距仪
 - 德力西金属探测仪
+- 七匹狼多功能旅行双肩包
 - 某不知名品牌单肩挎包
 
 
