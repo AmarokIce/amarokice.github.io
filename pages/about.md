@@ -10,13 +10,15 @@ permalink: /about/
 
 **名称/本名**：初雪·冰 / Amaruq·Illaujaq (Amarok·Ice)<br />
 **种族**：北极狼<br />
+**专业**：室内设计师<br />
+**设计领域**：室内设计，平面设计，版图设计<br />
 **编程语言**：Java，Kotlin，D，(较少) Ruby<br />
 **兴趣爱好**：保持设计，保持创作，保持思考，保持睡觉。<br />
 **喜好食物**：凤梨，羊肉，牛奶白菜煲。<br />
 **喜欢**：设计数据库，无头数据 IO，无数据库快速 IO。<br />
 **讨厌**：沟通，消费，被影响睡觉，被质疑睡觉学习论。<br />
 **害怕**：因纽特捕狼陷阱。<br />
-**一言**：Everyone can cook, and everyone can code, that what just for fun.<br />
+**一言**：I just a little wolf in this bigger world.<br />
 
 ## 特性标签
 如果你想快速了解我，那么很适合看看这些与闪记卡一样的小标签，而不需要整段阅读我的自我介绍。闪记卡永远是最好的。
@@ -54,7 +56,7 @@ permalink: /about/
 >
 > 真的，没救了。
 
-- Acer S50-51 Notebook & Microsoft Window 11
+- Acer S50-51 Notebook & Microsoft Window 11 Pro
   - Microsoft Surface BlueShadow Sculpt Mouse BlueTeeth Edition
   - 朗宁 UHD Displayer 15.6' Touch Edition
   - JIAS Optronices Carry Displayer 13'
@@ -68,7 +70,7 @@ permalink: /about/
 **携带设备**
 > 这是我出门接见客户时会带的设备，同时也是作为微软粉的终极军火清单。一整套配置全是微软的。平时没事还是喜欢用 Surface 练习画狼头盖骨。
 
-- Microsoft Surface Pro 8 & Microsoft Windows 11
+- Microsoft Surface Pro 8 & Microsoft Windows 11 Pro
   - Microsoft Surface BlueShadow Sculpt Mouse BlueTeeth Edition
   - Microsoft Surface Pro Signature Keyboard
   - Microsoft Surface Slim Pen 2
@@ -78,7 +80,7 @@ permalink: /about/
 >
 > 恩，听说模拟狼生画质开最高很伤显卡，希望 SteamDeck 能多让我玩几小时模拟狼生。
 
-- SteamDeck & SteamOS
+- SteamDeck OLED 512G Edition & SteamOS
   - JBL T520TB Headphone
   - Snail Technology BlueTeeth Keyboard
   - 朗宁 UHD Displayer 14.4'
