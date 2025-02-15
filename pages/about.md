@@ -60,7 +60,7 @@ permalink: /about/
 社交通讯簿：
 - [Github](https://github.com/AmarokIce)
 - [Bluesky](https://bsky.app/profile/amarokice.bsky.social)
-- [MC Mod](https://center.mcmod.cn/208628/)
+- [MCMod](https://center.mcmod.cn/208628/)
 
 
 ## 军火展示
@@ -73,33 +73,33 @@ permalink: /about/
 当我决定开始学习 Java,我的第一个工具就是 NetBeans。从安装开始就折腾了很久，因为我更本不知道为什么按照这个东西还需要配置 Java（NetBeans 与 Eclipse 早期一样由 Java Swing 构建）。  
 我开始练习，在 NetBeans 上学会了运行代码，调试代码，也慢慢养成了一些习惯。
 
-**Eclipse（Java IDE）**
+**Eclipse（Java IDE）**  
 身为设计师，最喜欢的就是自由装饰。NetBeans 没有那么丰富的插件库让我继续折腾，因此我转向了更有感觉，效率更高的 Eclipse。NetBeans 当时的运行速度其实还是很慢的，而 Eclipse 相对来说快多了。这让我更兴奋了，我决定继续使用 Eclipse。  
 即便现在 IntellJ 成为了我的主要工具，但说实话，我还是更喜欢 NetBeans 和 Eclipse。在 Windows 上我使用 NetBeans,在 Linux 上我使用 Eclipse。
 
-**JetBrains IntellJ IDEA（Java IDE）**
+**JetBrains IntellJ IDEA（Java IDE）**  
 JB IDE 就像是一个黑洞，把每个开发者都往里吸，即便它自身没有引力，但是它精致的界面，高配制度的插件和布局，我的脚就不听使唤的往里走。  
 同时，我也是经常编写 Kotlin 的开发者，JB 作为 Kotlin 的开发商，自家的 IDE 对 Kotlin 当然具备最前超，最顶级的支持。  
 但是 IDEA 总是抽风，尤其是 Linux 上，这让我很不爽。这也是为什么我无法完全脱离 NetBeans 与 Eclipse。当我与 IDEA 开始赌气，我就转向其他 IDE 继续我的开发。
 
-**Visual Studio Code**
+**Visual Studio Code**  
 我喜欢 VSCode 的自定义能力！我的 IDE 总是花里胡哨（？）  
 这是我为什么编程的原因。不过现在我用 VSCode 干的最多的就是写博客，或者写 D 语言。
 
 ### 其他工具
-**Google Quick Share（Windows）/RQuickShare(Linux)**
+**Google Quick Share（Windows）/RQuickShare(Linux)**  
 买了 Pixel 最需要体验的是什么？一个是拍照，另一个就是 Quick Share！这比 LocalSend 方便多了！
 
-**LocalSend**
+**LocalSend**  
 在我拥有 Pixel 之前最常用的，在几个设备之间交换数据。
 
-**Everything（Windows）**
+**Everything（Windows）**  
 内核级搜索引擎，Windows 必装软件，毫无疑问。
 
-**Adobe & Autodesk**
+**Adobe & Autodesk**  
 设计师离不开的东西，不是吗？在 Linux 上我会用 GNU 图像处理器，虽然抓感和 PS 或者 AI 差得远了。
 
-**Github Desktop（Windows）/GitKraken（Linux）**
+**Github Desktop（Windows）/GitKraken（Linux）**  
 其实我也可以用 LazyGit，但是中文支持太烂了。  
 我不是很喜欢记住 git 的指令，虽然我也不是记不住。我当然知道 Console 敲指令要比点点快多了，但 Console 可容不下那么多奇怪的符号，狼言狼语的提交记录（？）  
 好吧，其实我只是偶尔用用。通常会直接用 IDE 内置的 Git 集成处理，对于特殊情况才会上爪走指令。
