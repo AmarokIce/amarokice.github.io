@@ -6,7 +6,7 @@ date: 2024/03/31 11:17:14
 author: icewolf
 categories: [咩狼博客, 折腾, Kotlin]
 tags: [技术, Kotlin]
-pin: true
+pin: false
 ---
 
 出于某种原因，我一时间忘记如何在 object 表达式的 λ 中使用指向父级的 this 了，因此我会记录一片文章防止我的脑子里只有凤梨。

@@ -6,7 +6,7 @@ date: 2023/12/15 16:38:49
 author: icewolf
 categories: [咩狼博客, 折腾]
 tags: [Java, Kotlin, 图像处理]
-pin: true
+pin: false
 ---
 
 今天被朋友委托编写一个图像裁切程式，自动化处理一些聚合图像（如BitMap Textures）。原本是想套Python，但是朋友电脑没有Python，也没有安装的打算。我们都是Java玩家，因此我决定以Java的方式处理它。

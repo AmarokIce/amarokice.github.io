@@ -6,7 +6,7 @@ date: 2024/11/21 10:00:00
 author: icewolf
 categories: [咩狼博客, 折腾]
 tags: [DLang, 技术]
-pin: true
+pin: false
 ---
 
 因为 Windows 的控制台默认并不是 UTF-8, 但 DLang 强调使用 UTF-8 格式作为文件编码, 同时我们很大程度上并不希望使用 UTF-8 以外的编码，因此我们需要修改控制台编码。  

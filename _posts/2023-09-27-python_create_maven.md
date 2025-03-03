@@ -6,7 +6,7 @@ date: 2023/09/27 17:21:00
 author: icewolf
 categories: [咩狼博客, 折腾]
 tags: [Java, Gradle, 技术]
-pin: true
+pin: false
 ---
 
 有时候我会为Minecraft的开发或者一般项目开发而设计一些Lib，但是我没有很好的仓库存储它们。通常我会发布到Github Package，但是Github Package不便于其他人拉取，并且很多时候会引起Gradle不悦而拉取抽风。Jitpack会在远端构建，有时候会出一些奇怪的问题或者因为一些年久失修的源服务器无法访问而无法构建（本地可以借助本地仓库来取代年久失修的项目，因此是正常构建）。
