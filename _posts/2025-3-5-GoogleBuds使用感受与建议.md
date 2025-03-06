@@ -13,13 +13,13 @@ pin: true
 <details>
   <summary>展开图廊</summary>
 
-  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/PixelBud/PXL_20250306_031407494.jpg" alt="合照">
+  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/PixelBud/PXL_20250306_031407494.jpg">
 
-  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/PixelBud/PXL_20250306_031358178.jpg" alt="闭合状态">
+  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/PixelBud/PXL_20250306_031358178.jpg">
 
-  <img src="https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/PXL_20250306_031443314.jpg" alt="归位状态">
+  <img src="https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/PXL_20250306_031443314.jpg">
 
-  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/PixelBud/PXL_20250306_031353094.jpg" alt="空仓状态">
+  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/PixelBud/PXL_20250306_031353094.jpg">
 
 </details>
 
