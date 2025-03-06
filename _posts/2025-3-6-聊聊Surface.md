@@ -14,9 +14,12 @@ pin: true
 <details>
   <summary>展开图廊</summary>
 
-  ![闭合状态](https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/Surface/PXL_20250306_041339599.jpg)  
-  ![背面](https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/Surface/PXL_20250306_041453994.jpg)  
-  ![正面](https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/Surface/PXL_20250306_041444273.jpg)  
+  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/Surface/PXL_20250306_041339599.jpg" alt="闭合状态">
+
+  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/Surface/PXL_20250306_041453994.jpg" alt="背面">
+
+  <img src="https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/Surface/PXL_20250306_041444273.jpg" alt="正面">
+
 </details>
 
 这会把基岩也拉下水了，整了台顶级时尚~~的电子垃圾~~的 Surface Pro 5。不妨聊聊 Surface Pro 吧。  
