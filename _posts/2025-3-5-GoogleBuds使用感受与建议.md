@@ -12,30 +12,11 @@ pin: true
 > 前排提示：Google Pixel Bud 系列分为 Bud（运动款），Bud A-Series（入耳式）与 Bud Pro 2（入耳式），但我使用的是 Bud 款。如果你正在寻找其他款式，恐怕我暂时无法提供相关的感受，虽然我正在计划购入它们。
 <details>
   <summary>展开图廊</summary>
-  <table>
-    <tbody>
-      <tr>
-        <tb>
-        <img src = "https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031407494.jpg" alt = "合照"></img>
-        </tb>
-      </tr>
-      <tr>
-        <tb>
-          <img src = "https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031358178.jpg" alt = "闭合状态"></img>
-        </tb>
-      </tr>
-      <tr>
-        <tb>
-          <img src = "https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031443314.jpg" alt = "归位状态"></img>
-        </tb>
-      </tr>
-      <tr>
-        <tb>
-          <img src = "https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031353094.jpg" alt = "空仓状态"></img>
-        </tb>
-      </tr>
-    </tbody>
-  </table>
+  
+  ![合照](https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031407494.jpg)  
+  ![闭合状态](https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031358178.jpg)  
+  ![归位状态](https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031443314.jpg)  
+  ![空仓状态](https://github.com/AmarokIce/amarokice.github.io/blob/master/assets/img/post/PixelBud/  PXL_20250306_031353094.jpg)  
 </details>
 
 <p />
