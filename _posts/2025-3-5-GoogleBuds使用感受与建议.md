@@ -1,7 +1,7 @@
 ---
 layout: post
 type: blog
-title: GoogleBuds使用感受与建议
+title: Google Buds 使用感受与建议
 date: 2025/03/5 11:10:00
 author: icewolf
 categories: [咩狼博客, 日常]
@@ -9,7 +9,7 @@ tags: [博客, 日常]
 pin: true
 ---
 
-> 前排提示：Google Pixel Bud 系列分为 Bud（运动款），Bud A-Series（入耳式）与 Bud Pro 2（入耳式），但我使用的是 Bud 款。如果你正在寻找其他款式，恐怕我暂时无法提供相关的感受，虽然我正在计划购入它们。
+> 前排提示：Google Pixel Bud 系列分为 Bud（一代），Bud A-Series（二代）与 Bud Pro 2（二代），但我使用的是 Bud 款。如果你正在寻找其他款式，恐怕我暂时无法提供相关的感受，虽然我正在计划购入它们。
 <details>
   <summary>展开图廊</summary>
 

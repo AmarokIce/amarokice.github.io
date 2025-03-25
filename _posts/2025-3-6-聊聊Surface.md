@@ -1,7 +1,7 @@
 ---
 layout: post
 type: blog
-title: 聊聊MicrosoftSurfacePro
+title: 聊聊 Microsoft Surface Pro
 date: 2025/03/6 14:10:00
 author: icewolf
 categories: [咩狼博客, 日常]
