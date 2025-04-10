@@ -8,7 +8,7 @@ permalink: /about/
 
 <font size=5>初雪·冰 个狼档案</font>
 
-**名称/本名**：初雪·冰 (Amarok·Ice) / Amaruq·Illaujaq (阿玛鲁克·伊劳雅克)
+**名称/本名**：初雪·冰 (Amarok·Ice) / Amaruq·Illaujaq (阿玛鲁克·伊劳雅克)  
 **种族**：北极狼  
 **专业**：室内设计师  
 **设计领域**：室内设计，平面设计，版图设计  
