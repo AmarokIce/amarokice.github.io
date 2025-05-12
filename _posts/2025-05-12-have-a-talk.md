@@ -2,7 +2,7 @@
 layout: post
 type: blog
 title: 5月12日随记
-date: 2025/05/012 11:10:00
+date: 2025/05/12 11:10:00
 author: icewolf
 categories: [咩狼博客]
 tags: [博客,狼癫疯]
