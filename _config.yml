@@ -4,13 +4,14 @@ description: >
   I never pretend to understand the moon-- she's much bigger than I am.
 baseurl: "https://wolf.snowlyicewolf.club"
 url: "https://wolf.snowlyicewolf.club"
-# twitter_username:
+
 github_username: AmarokIce
 
 markdown: kramdown
 
 kramdown:
   syntax_highlighter: rouge
+
 gems:
   - jemoji
 
