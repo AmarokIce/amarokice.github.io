@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: Java/Kotlin图像裁切
 date: 2023/12/15 16:38:49
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 折腾]
 tags: [Java, Kotlin, 图像处理]
 pin: false

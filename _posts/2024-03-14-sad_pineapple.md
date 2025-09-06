@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: 悲报
 date: 2024/03/14 22:40:40
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 狼癫疯]
 tags: [狼癫疯]
 pin: false

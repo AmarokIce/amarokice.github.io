@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: 5月6日随记
 date: 2025/05/06 11:10:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客]
 tags: [博客,狼癫疯]
 pin: false

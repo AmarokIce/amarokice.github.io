@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: 这个文件夹改善了我的工作区
 date: 2025/02/14 14:10:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 技术]
 tags: [博客, 技术]
 pin: false

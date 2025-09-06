@@ -2,7 +2,7 @@
 layout: post
 type: blog
 title: DLang+VSCode 快速上爪指北
-author: icewolf
+author: Amaruq·Illaujaq
 date: 2024-09-10 18:30:00 +0800
 categories: [咩狼博客, 折腾]
 tags: [DLang]

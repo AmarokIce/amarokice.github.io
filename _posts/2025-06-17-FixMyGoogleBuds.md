@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: Google Buds 修复指北
 date: 2025/06/17 11:10:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 日常]
 tags: [博客, 日常]
 pin: true

@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: Google Buds 使用感受与建议
 date: 2025/03/5 11:10:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 日常]
 tags: [博客, 日常]
 pin: true

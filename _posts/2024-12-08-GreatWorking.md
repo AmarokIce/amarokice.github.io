@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: 高效率的生产力
 date: 2024/12/8 15:44:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 以狼观世]
 tags: [博客, 哲学]
 pin: false

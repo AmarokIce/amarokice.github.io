@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: Gravatar无法访问的完美解决方针：Cravatar
 date: 2023/04/01 11:25:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 折腾]
 tags: [日常, 博客, 技术]
 pin: false

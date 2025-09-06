@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: Fedora XFce DE 折腾指北
 date: 2025/08/10 11:10:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [折腾]
 tags: [博客, 技术, 日常]
 pin: true

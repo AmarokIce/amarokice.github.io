@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: 聊聊这个月
 date: 2025/02/14 14:10:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 日常]
 tags: [博客, 日常]
 pin: false

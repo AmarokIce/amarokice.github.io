@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: DLang对象与继承关系
 date: 2024/11/11 17:21:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [咩狼博客, 折腾]
 tags: [DLang, 技术]
 pin: false

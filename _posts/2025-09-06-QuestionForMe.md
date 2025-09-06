@@ -3,7 +3,7 @@ layout: post
 type: blog
 title: 聊聊关于 2025——9月对今年的反思
 date: 2025/09/6 8:30:00
-author: icewolf
+author: Amaruq·Illaujaq
 categories: [日常]
 tags: [博客, 日常]
 pin: true
