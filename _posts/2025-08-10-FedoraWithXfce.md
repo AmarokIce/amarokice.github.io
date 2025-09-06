@@ -1,7 +1,7 @@
 ---
 layout: post
 type: blog
-title: Google Buds 修复指北
+title: Fedora XFce DE 折腾指北
 date: 2025/08/10 11:10:00
 author: icewolf
 categories: [折腾]

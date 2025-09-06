@@ -17,3 +17,5 @@ gems:
 
 redcarpet:
   extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "fenced_code_blocks"]
+
+permalink: /:year-:month/:title.html
