@@ -21,3 +21,6 @@ redcarpet:
 permalink: /:year-:month/:title.html
 
 timezone: Asia/Shanghai
+
+plugin:
+  - jekyll-sitemap
