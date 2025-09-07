@@ -4,7 +4,7 @@ type: blog
 title: 我要吃凤梨！
 date: 2023/07/21 11:05:40
 author: Amaruq·Illaujaq
-categories: [咩狼博客, 狼癫疯]
+categories: [狼癫疯]
 tags: [狼癫疯]
 pin: false
 ---

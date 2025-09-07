@@ -4,7 +4,7 @@ type: blog
 title: DLang 在 Windows 控制台中输出乱码的解决方案
 date: 2024/11/21 10:00:00
 author: Amaruq·Illaujaq
-categories: [咩狼博客, 折腾]
+categories: [Dlang]
 tags: [DLang, 技术]
 pin: false
 ---

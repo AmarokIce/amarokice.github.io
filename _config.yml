@@ -13,14 +13,14 @@ kramdown:
   syntax_highlighter: rouge
 
 gems:
+  - jemoji
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jemoji
+
 
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jemoji
 
 redcarpet:
   extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "fenced_code_blocks"]
@@ -28,3 +28,9 @@ redcarpet:
 permalink: /:year-:month/:title.html
 
 timezone: Asia/Shanghai
+
+category_info:
+  以狼观世: 虽然我只是这偌大世界的一只小狼，但小狼也可以用双眼观察世界。
+  日常: 随记，突发奇想的内容，以及一些可有可无的记录。
+  学习笔记: 记录一些问题的解决方案，或是一些有意思的内容。
+  狼癫疯: 大多时候只是因为饿了而感到愤怒然后开始写文章。
