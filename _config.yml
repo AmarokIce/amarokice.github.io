@@ -2,7 +2,8 @@ title: 狼与凤梨田
 email: amarokice@outlook.com
 description: >
   I never pretend to understand the moon-- she's much bigger than I am.
-baseurl: "https://wolf.snowlyicewolf.club"
+
+# baseurl: "https://wolf.snowlyicewolf.club"
 url: "https://wolf.snowlyicewolf.club"
 
 github_username: AmarokIce
@@ -13,6 +14,13 @@ kramdown:
   syntax_highlighter: rouge
 
 gems:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jemoji
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
   - jemoji
 
 redcarpet:
@@ -21,6 +29,3 @@ redcarpet:
 permalink: /:year-:month/:title.html
 
 timezone: Asia/Shanghai
-
-plugin:
-  - jekyll-sitemap
