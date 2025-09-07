@@ -1,7 +1,7 @@
 ---
 layout: page
 type: navigation
-title: 关于咩狼
+title: 关于
 permalink: /about/
 ---
 <img align="right" width="230" src="https://avatars.githubusercontent.com/u/91077200?v=4"/>

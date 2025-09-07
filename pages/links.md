@@ -1,7 +1,7 @@
 ---
 layout: page
 type: navigation
-title: 友情连接
+title: 友链
 permalink: /link/
 ---
 
