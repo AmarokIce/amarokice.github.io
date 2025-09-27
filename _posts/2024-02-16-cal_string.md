@@ -4,8 +4,8 @@ type: blog
 title: 计算字符串运算！
 date: 2024/02/16 21:01:00
 author: Amaruq·Illaujaq
-categories: [咩狼博客, 折腾]
-tags: [Java, Kotlin]
+categories: [Kotlin]
+tags: [Kotlin]
 pin: false
 ---
 

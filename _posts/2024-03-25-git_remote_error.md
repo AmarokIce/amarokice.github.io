@@ -1,10 +1,10 @@
 ---
 layout: post
 type: blog
-title: Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal - The requested URL returned error - 403
+title: Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal
 date: 2024/03/25 09:33:00
 author: Amaruq·Illaujaq
-categories: [咩狼博客, 折腾]
+categories: [Git]
 tags: [技术, Git]
 pin: false
 ---

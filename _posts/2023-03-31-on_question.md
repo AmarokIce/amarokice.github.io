@@ -5,7 +5,7 @@ title: 发现一个问题，分析一个问题
 description: 将多个假设聚合在一起筛选，这样就能得到一个最好的结果。
 author: Amaruq·Illaujaq
 date: 2023-03-31 18:30:00 +0800
-categories: [咩狼博客, 以狼观世]
+categories: [以狼观世]
 tags: [日常, 哲学, 闲聊]
 pin: false
 ---

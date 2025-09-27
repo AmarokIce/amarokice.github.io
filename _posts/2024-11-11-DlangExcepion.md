@@ -4,13 +4,13 @@ type: blog
 title: DLang对象与继承关系
 date: 2024/11/11 17:21:00
 author: Amaruq·Illaujaq
-categories: [咩狼博客, 折腾]
+categories: [Dlang]
 tags: [DLang, 技术]
 pin: false
 ---
 
-不知道为什么，Bing 和 Google 上都没有 DLang 中类似 Java 的 instanceof 的用法说明。看了一天 Objects in D Prograssing Language 文档之后一无所获。最后我相信读代码应该能解决问题。当然，这个问题解决了，否则就没有这篇文章了。  
-首先我们依然需要知道一个概念：DLang 与任何面向对象语言一样，都有一个集中对象，就像 Java 与 Ruby 中是 Object，Kotlin 中是 Any。DLang 中使用的也是 Object（Class）。任何类与接口都是 Object 的派生类。而对象操作的集合则是一个单独的包，`object`。`object` 不在 std 之中，而 `object` 默认被任何类继承，因此直接使用内部函数即可。
+不知道为什么，Bing 和 Google 上都没有 `DLang` 中类似 `Java` 的 `instanceof` 的用法说明。看了一天 "Objects in D Prograssing Language" 文档之后一无所获。最后我相信读代码应该能解决问题。当然，这个问题解决了，否则就没有这篇文章了。  
+首先我们依然需要知道一个概念：`DLang` 与任何面向对象语言一样，都有一个集中对象，就像 `Java` 与 `Ruby` 中是 `Object`，`Kotlin` 中是 `Any`。`DLang` 中使用的也是 `Object（Class）`，任何类与接口都是 `Object` 的派生类。而对象操作的集合则是一个单独的包，`object`。`object` 不在 `std` 之中，而 `object` 默认被任何类继承，因此直接使用内部函数即可。
 
 
 ## 简单对比：`is` 与 `object#typeid() -> TypeInfo`
