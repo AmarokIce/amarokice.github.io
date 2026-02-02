@@ -19,7 +19,7 @@ New3DS 中可以直接通过远端通讯的方式连接到 Windows，不需要�
 
 在 Windows 开始菜单中搜索 “Windows 功能”，选中最上面的 “开启或关闭 Windows 功能”，打开 “SMB 1.0/CIFS 档案支持”。
 
-!()[https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/WindowsCupabilities.png]
+![](https://raw.githubusercontent.com/AmarokIce/amarokice.github.io/refs/heads/master/assets/img/post/WindowsCupabilities.png)
 
 如果曾经没有打开这项功能，那么现在点击确定会提示重启。是的，这是必须重启的。
 
