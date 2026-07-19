@@ -4,7 +4,7 @@ type: blog
 title: 随机一问：去推荐一门入门的编程语言？
 date: 2026/04/06 10:00:00
 author: Amaruq·Illaujaq
-categories: [技术]
+categories: [随机一问]
 tags: [技术]
 pin: true
 ---
