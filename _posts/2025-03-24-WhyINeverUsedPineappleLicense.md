@@ -6,7 +6,7 @@ date: 2025/03/24 11:10:00
 author: Amaruq·Illaujaq
 categories: [学习笔记]
 tags: [博客, 日常]
-pin: true
+pin: false
 ---
 
 不知道有没有人注意到，我现在的大多 Minecraft 模组，或者一些独立项目，都开始逐渐脱离了 "Pineapple License"；新项目也不再使用 "Pineapple License"。  

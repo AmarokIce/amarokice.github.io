@@ -6,7 +6,7 @@ date: 2025/03/5 11:10:00
 author: Amaruq·Illaujaq
 categories: [日常]
 tags: [博客, 日常]
-pin: true
+pin: false
 ---
 
 > 前排提示：Google Pixel Bud 系列分为 Bud（一代），Bud A-Series（二代）与 Bud Pro 2（二代），但我使用的是 Bud 款。如果你正在寻找其他款式，恐怕我暂时无法提供相关的感受，虽然我正在计划购入它们。

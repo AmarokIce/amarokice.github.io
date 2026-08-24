@@ -6,7 +6,7 @@ date: 2026/07/20 20:38:57.3482883
 author: Amaruq·Illaujaq
 categories: [日常]
 tags: [日常]
-pin: true
+pin: false
 ---
 
 上一篇随机一问的博文抽取到了关于咖啡的话题，自从尘妈赠送了那哥斯达黎加三水河地区的咖啡豆后我总是惦记着这个。  

@@ -6,7 +6,7 @@ date: 2023/06/14 21:41:00
 author: Amaruq·Illaujaq
 categories: [Java, Kotlin]
 tags: [Java, Kotlin, 图像处理]
-pin: false
+pin: true
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 layout: category
 type: navigation
-title: 分类
+title: 全部文章
 permalink: /categories/
 ---

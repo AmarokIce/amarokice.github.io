@@ -6,7 +6,7 @@ date: 2024/12/8 15:44:00
 author: Amaruq·Illaujaq
 categories: [以狼观世]
 tags: [博客, 哲学]
-pin: false
+pin: true
 ---
 
 # 引子

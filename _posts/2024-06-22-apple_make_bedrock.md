@@ -6,7 +6,7 @@ author: bedrock
 date: 2024-06-22 18:30:00 +0800
 categories: [学习笔记]
 tags: [基岩博客]
-pin: false
+pin: true
 ---
 
 # [折腾心得] 2024年黑苹果装机简要报告

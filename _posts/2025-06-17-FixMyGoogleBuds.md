@@ -6,7 +6,7 @@ date: 2025/06/17 11:10:00
 author: Amaruq·Illaujaq
 categories: [日常]
 tags: [博客, 日常]
-pin: true
+pin: false
 ---
 
 > 前排提示：Google Pixel Bud（2017），不是 Pro。

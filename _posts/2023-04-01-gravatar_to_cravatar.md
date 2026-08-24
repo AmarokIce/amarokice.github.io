@@ -6,7 +6,7 @@ date: 2023/04/01 11:25:00
 author: Amaruq·Illaujaq
 categories: [学习笔记]
 tags: [日常, 博客, 技术]
-pin: false
+pin: true
 ---
 
 今天又是建设站点基本内容的一天，在老站点的时期我就对Gravatar连接过慢感到不满了。因此加入了一些插件，手搓图像优化来制作手动上传，但是这次服务器并不大，Gravatar可能是我唯一的解决方案？
@@ -15,8 +15,6 @@ Gravatar被WordPress收购了，这引起了我的注意。WordPress是很棒的
 很好，我知道了。由大陆站LitePress驱动的自由公共头像站源Cravatar正是我需要的！这是一个完全兼容Gravatar的源，因此如果你曾经使用了Gravatar保存你的头像也无需担心，完全能够兼容！
 只需要简单的注册一个账号，绑定邮箱，那么任何调用Cravatar（或Gravatar）的站点都能访问你的头像！
 如果你想在你的站点使用，将Gravatar的站源定向为 `https://cravatar.cn/avatar/` 即可！
-
-> 咩狼的站点的邮箱功能仅用于绑定头像，不会公开或分发SPAM。
 
 完全没有使用过Cravatar（或Gravatar）？非常简单，简单到不需要教学！
 注：`Gravatar In CN` 只是中文站，你可能依然需要梯子或者别的什么才能上去。

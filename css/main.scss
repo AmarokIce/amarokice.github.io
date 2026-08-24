@@ -2,6 +2,12 @@
 ---
 @charset "utf-8";
 
+@import url(monokai.css);
+@import url(son-of-obsidian.css);
+@import url(nord.css);
+@import url(moonlight.css);
+
+
 // Our variables
 $base-font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 $base-font-size:   18px;
@@ -12,11 +18,11 @@ $base-line-height: 1.5;
 
 $spacing-unit:     30px;
 
-$text-color:       #2e3440;
-$background-color: #d8dee9;
-$brand-color:      #5e81ac;
+$text-color:       #FFFACD;
+$background-color: #333333;
+$brand-color:      #7986CB;
 
-$grey-color:       #4c566a;
+$grey-color:       #3F51B5;
 $grey-color-light: lighten($grey-color, 30%);
 $grey-color-dark:  darken($grey-color, 25%);
 
@@ -45,9 +51,6 @@ $on-laptop:        700px;
         "base",
         "layout"
 ;
-
-@import url(monokai.css);
-@import url(son-of-obsidian.css);
 
 /* AK custom CSS mods */
 .imgright { float: right; margin-left: 10px; }

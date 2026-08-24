@@ -6,7 +6,7 @@ date: 2025/09/6 8:30:00
 author: Amaruq·Illaujaq
 categories: [日常]
 tags: [博客, 日常]
-pin: true
+pin: false
 ---
 
 我知道我一直都不是一只很好的狼，也不善于编写点什么，大多都是意识流，文章狼屁不通。但我就是觉得我应该写点什么，记录一下我想做的与应该做的。  

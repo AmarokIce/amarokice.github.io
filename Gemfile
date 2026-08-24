@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
+
 gem 'jekyll'
 gem 'kramdown'
+gem 'bigdecimal'
 gem 'jemoji'
 gem 'tzinfo-data'
 gem 'jekyll-sitemap'

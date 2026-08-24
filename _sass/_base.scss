@@ -86,7 +86,7 @@
 /* Block Quotes
  * ============================================== */
     blockquote {
-        color: #4c566a;
+        color: #FFFACD;
         border-left: 4px solid $brand-color;
         padding-left: $spacing-unit / 2;
         font-size: 17px;
@@ -160,8 +160,8 @@
     }
 
     :not(.highlight)>table tr {
-        background-color: #fff;
-        border-top: 1px solid #ccc
+        background-color: #2E3440;
+        border-top: 1px solid #666666;
     }
 
     :not(.highlight)>table tr th, :not(.highlight)>table tr td {
@@ -174,5 +174,5 @@
     }
 
     :not(.highlight)>table tr:nth-child(2n) {
-        background-color: #f8f8f8
+        background-color: #3B4252
     }
