@@ -2,11 +2,6 @@
 ---
 @charset "utf-8";
 
-@import url(monokai.css);
-@import url(son-of-obsidian.css);
-@import url(nord.css);
-@import url(moonlight.css);
-
 // Our variables
 $base-font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 $base-font-size:   18px;
@@ -46,10 +41,12 @@ $on-laptop:        700px;
 }
 
 // Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "base",
-        "layout"
-;
+@import "base";
+@import "layout";
+
+@import url(monokai.css);
+@import url(son-of-obsidian.css);
+
 
 /* AK custom CSS mods */
 .imgright { float: right; margin-left: 10px; }

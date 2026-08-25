@@ -221,18 +221,19 @@
 }
 
 /* Linked Card */
+
 .card-link-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  gap: 12px;
+  padding: 12px;
   width: 100%;
 }
 
 .card {
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 12px;
   background-color: #3B4252;
   border: 1px solid #2E3440;
   border-radius: 12px;
@@ -247,8 +248,8 @@
 }
 
 .card-avatar {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   margin-right: 14px;
   flex-shrink: 0;
@@ -285,7 +286,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
