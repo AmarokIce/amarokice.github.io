@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+<div class="card-link-container">
+  {% for friend in site.freind_links %}
+  <a href="{{" friend.webside }} class="card" target="_blank" rel="noopener">
+    <img src=" {{ friend.avatar }}" alt="头像" class="card-avatar" />
+    <div class="card-info">
+      <div class="card-header">
+        <span class="card-title">{{ friend.webname }}</span>
+        <span class="card-subtitle">{{ friend.name }}</span>
+      </div>
+      <p class="card-desc">{{ friend.info }}</p>
+    </div>
+  </a>
+  {% endfor %}
+</div>

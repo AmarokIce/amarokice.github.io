@@ -34,3 +34,23 @@ category_info:
   日常: 随记，突发奇想的内容，以及一些可有可无的记录。
   学习笔记: 记录一些问题的解决方案，或是一些有意思的内容。
   狼癫疯: 大多时候只是因为饿了而感到愤怒然后开始写文章。
+
+freind_links:
+  - webname: "墨青的博客"
+    name: "墨青BlackCyan"
+    webside: "https://blog.blackcyan.top/"
+    avatar: "https://avatars.githubusercontent.com/u/117635344"
+    info: "别工作了，饮咖啡先!"
+
+  - webname: "KrKrLite 的故事"
+    name: "KrKrLite"
+    webside: "https://krlite.netlify.app/"
+    avatar: "https://avatars.githubusercontent.com/u/68179735"
+    info: "人生中总会发生一些事。无论是否值得被回忆、被忘却、被纪念，它们终会在时间的土层之下完成自己的宿命。与其待之埋没于扬尘，不如将它们在此记下。"
+
+  - webname: "锐龙的小窝"
+    name: "锐冰龙"
+    webside: "https://github.com/SharpIceX"
+    avatar: "https://avatars.githubusercontent.com/u/61524717"
+    info: "贴贴～"
+
