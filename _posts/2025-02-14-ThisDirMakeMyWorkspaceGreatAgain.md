@@ -4,7 +4,7 @@ type: blog
 title: 这个文件夹改善了我的工作区
 date: 2025/02/14 14:10:00
 author: Amaruq·Illaujaq
-categories: [学习笔记]
+categories: [技术]
 tags: [博客, 技术]
 pin: false
 ---

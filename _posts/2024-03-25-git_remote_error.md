@@ -4,7 +4,7 @@ type: blog
 title: Git疑难杂症-权限令牌错误 remote-Permission to xxxxx.git denied to xxx fatal
 date: 2024/03/25 09:33:00
 author: Amaruq·Illaujaq
-categories: [Git]
+categories: [技术]
 tags: [技术, Git]
 pin: true
 ---

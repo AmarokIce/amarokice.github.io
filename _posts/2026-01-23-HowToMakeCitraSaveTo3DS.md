@@ -4,7 +4,7 @@ type: blog
 title: 如何迁移 Citra 存档至 3DS 实体机
 date: 2026/01/23 10:00:00
 author: Amaruq·Illaujaq
-categories: [日常]
+categories: [技术]
 tags: [博客]
 pin: true
 ---
