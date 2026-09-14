@@ -4,8 +4,8 @@ type: blog
 title: 折腾心得-黑苹果装机简要报告
 author: bedrock
 date: 2024-06-22 18:30:00 +0800
-categories: [技术]
-tags: [基岩博客]
+categories: [基岩博客]
+tags: [基岩博客, 博客]
 pin: true
 ---
 
