@@ -5,7 +5,7 @@ title: DLang对象与继承关系
 date: 2024/11/11 17:21:00
 author: Amaruq·Illaujaq
 categories: [Dlang]
-tags: [DLang, 技术]
+tags: [Dlang, 技术]
 pin: true
 ---
 

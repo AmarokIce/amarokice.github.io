@@ -5,7 +5,7 @@ title: 为何选择 DLang
 date: 2024/11/12 10:00:00
 author: Amaruq·Illaujaq
 categories: [Dlang]
-tags: [DLang, 技术]
+tags: [Dlang, 技术]
 pin: true
 ---
 

@@ -5,7 +5,7 @@ title: DLang 在 Windows 控制台中输出乱码的解决方案
 date: 2024/11/21 10:00:00
 author: Amaruq·Illaujaq
 categories: [Dlang]
-tags: [DLang, 技术]
+tags: [Dlang, 技术]
 pin: true
 ---
 

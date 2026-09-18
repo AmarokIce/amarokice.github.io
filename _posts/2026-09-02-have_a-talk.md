@@ -5,7 +5,7 @@ title: 9月2日随记
 date: 2026/09/02 1:10:00
 author: Amaruq·Illaujaq
 categories: [日常]
-tags: [博客,日常]
+tags: [日常]
 pin: false
 ---
 
